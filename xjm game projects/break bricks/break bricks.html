@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task 7</title>
+    <link rel="stylesheet" href="break bricks.css">
+</head>
+<body>
+<canvas id="panel" width="600" height="800"></canvas>
+
+<script>
+    var log=console.log.bind(console)
+
+    function ball_draw() {
+
+
+        function ball_move() {
+            b_hzb+=b_speed;
+            b_zzb+=b_speed;
+            context.drawImage(ball,b_hzb,b_zzb)
+        }
+    }
+
+    function board_draw()
+    {
+        var hzb=300
+        var zzb=750;
+        var b_hzb=230;
+        var b_zzb=500;
+        var speed=10;
+        var panel=document.getElementById('panel');
+        var context=panel.getContext('2d');
+        var board=new Image();
+        board.src='board.png';
+        board.onload=function ()
+        {
+            context.drawImage(board,hzb, zzb)
+        }
+        var ball=new Image();
+        ball.src='ball.png'
+        ball.onload=function () {
+            context.drawImage(ball,b_hzb,b_zzb)
+        }
+        window.addEventListener('keydown',function (event){
+            var k=event.key
+            if(k=='a')
+            {
+                b_hzb+=speed;
+                b_zzb+=speed;
+                hzb-=speed;
+                context.clearRect(0,0,panel.width,panel.height);
+                context.drawImage(board, hzb, zzb);
+                context.drawImage(ball,b_hzb,b_zzb)
+
+            }
+            else if(k=='d')
+            {
+                b_hzb+=speed;
+                b_zzb+=speed;
+                hzb+=speed;
+                context.clearRect(0,0,panel.width,panel.height);
+                context.drawImage(board, hzb, zzb);
+                context.drawImage(ball,b_hzb,b_zzb)
+
+            }
+
+        })
+       /* setInterval(function () {
+            b_hzb+=speed;
+            b_zzb+=speed;
+            context.clearRect(0,0,panel.width,panel.height);
+            context.drawImage(ball,b_hzb,b_zzb)
+        },1000/30)*/
+
+    }
+
+    function init() {
+        board_draw();
+    }
+
+    init();
+
+</script>
+</body>
+</html>
+
+</body>
+</html>
