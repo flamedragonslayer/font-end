@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task 7</title>
+    <link rel="stylesheet" href="task 8.css">
+</head>
+<body>
+<button id="f_map">前序遍历</button><button id="m_map">中序遍历</button><button id="e_map">后序遍历</button>
+<div id="all">dota英雄介绍
+    <div class="layer_1">天辉
+        <div class="layer_2">冰系英雄
+            <div class="layer_3">冰女</div>
+            <div class="layer_3">小黑</div>
+            <div class="layer_3">海民</div>
+        </div>
+        <div class="layer_2">雷系英雄
+            <div class="layer_3">宙斯</div>
+            <div class="layer_3">蓝猫</div>
+            <div class="layer_3">萨尔</div>
+        </div>
+    </div>
+    <div class="layer_1">夜魇
+        <div class="layer_2">火系英雄
+            <div class="layer_3">末日</div>
+            <div class="layer_3">骨弓</div>
+            <div class="layer_3">蝙蝠</div>
+        </div>
+        <div class="layer_2">水系英雄
+            <div class="layer_3">小鱼</div>
+            <div class="layer_3">大鱼</div>
+            <div class="layer_3">潮汐</div>
+        </div>
+    </div>
+</div>
+<br><input type="text" id="lkf"><button id="lkf_button">查询</button>
+<!--这里体现二叉树动画的载体，需要自己在html里面先写出来，当然也可以用Js配合for循环来自定义不过如果不是大型二叉树就没必要了，太麻烦了-->
+<script>
+    var f_map=document.getElementById("f_map");
+    var m_map=document.getElementById("m_map");
+    var e_map=document.getElementById("e_map");
+    var all=document.getElementById("all");
+    var tree=[];
+    var Animation = false;
+    var lkf=document.getElementById("lkf");
+    var lkf_button=document.getElementById("lkf_button");
+
+
+    function init() {
+
+        f_map.onclick=f_click;
+        m_map.onclick=m_click;
+        e_map.onclick=e_click;
+        lkf_button.onclick=function ()
+        {
+            if (Animation == true) {
+                alert("正在执行动画中");
+                return ;
+            }
+            tree=[];
+            f_order(all);
+            lookfor();
+        }
+    }
+    function f_click() {
+        if (Animation == true) {
+            alert("正在执行动画中");
+            return ;
+        }
+        else
+        {
+            tree = [];     //将之前已经塞了东西的tree归零。不清零的话，会先按照tree里之前的顺序去执行动画效果，再按照新加入的顺序去执行动画效果。
+            f_order(all);//将all里的div按照想要的遍历顺序加入tree里面。通过这个函数能得到一个想要的顺序的树。
+            render();    //遍历函数的作用不是边递归边执行其他代码如更改颜色，而是将数组排序。
+        }
+    }
+    function m_click() {
+        if (Animation == true) {
+            alert("正在执行动画中");
+            return ;
+        }
+        else
+        {
+            tree = [];
+            m_order(all);
+            render();
+        }
+    }
+    function e_click() {
+        if (Animation == true) {
+            alert("正在执行动画中");
+            return ;
+        }
+        else
+        {
+            tree = [];
+            e_order(all);
+            render();
+        }
+    }
+    function f_order(node) {
+        if(node)
+        {
+            tree.push(node);//先push根节点
+            for (var i = 0; i < node.children.length; i++)
+            {
+                f_order(node.children[i]);
+                //f_order(node.firstElementChild);//再push左子树
+                //f_order(node.lastElementChild);//再push右子树
+            }
+        }
+    }
+    function m_order(node) {
+        if(node)
+        {
+            for (var i = 0; i < node.children.length; i++)
+            {
+                if(i==0) {
+                    f_order(node.children[i]);
+                    tree.push();
+                }
+                else{
+                    f_order(node.children[i]);
+                }
+                //f_order(node.firstElementChild);//再push左子树
+                //f_order(node.lastElementChild);//再push右子树
+            }
+            //m_order(node.firstElementChild);
+            //tree.push(node);
+            //m_order(node.lastElementChild);
+        }
+    }
+    function e_order(node) {
+        if(node)
+        {
+            for (var i = 0; i < node.children.length; i++)
+            {
+                f_order(node.children[i]);
+                //f_order(node.firstElementChild);//再push左子树
+                //f_order(node.lastElementChild);//再push右子树
+            }
+            tree.push(node);
+        }
+    }
+    /*function change_color(node) {
+     node.style.backgroundColor="yellow";//这里是本来想植入到遍历函数中随着遍历一块更改颜色的函数。
+     }*/
+    function render() {
+
+            var i = 0;
+            tree[i].style.backgroundColor = "yellow";
+            var item = setInterval(show, 500);        //要给setInterval赋值一个id，不然没法用clearInterval清楚定时器，不知道如果不赋值会不会无法运行。
+            function show()                       //定时器里要执行的函数是可以单独拎出来写的，之所以出现一开始出现的卡顿问题是因为给show加了个括号。
+            {                                      //去掉定时器里函数的括号后就恢复正常了。
+                Animation=true;
+                i++;//配合定时器的1秒，循环实现i的增加。
+                if (i >= tree.length)//最后一个的动画效果已经实现了，这里是最后一个在加一个
+                {
+                    clearInterval(item);
+                    tree[tree.length - 1].style.backgroundColor = "white";
+                    Animation = false;
+                    return;
+                }
+                tree[i - 1].style.backgroundColor = "white";
+                tree[i].style.backgroundColor = "yellow";
+            }
+
+    }
+    function lookfor () {
+        var record=[];
+        var num=0;
+        var reg=eval("/"+lkf.value+"/g");
+        var i=0;
+        tree[i].style.backgroundColor="blue";
+        var item=setInterval(show,100);
+        function show() {
+            Animation=true;
+            i++;
+            //if(reg.test(tree[i].innerHTML.toString()))//这个方法检验存在与否不好用,这里用innerHTML可以，但是用value就不行。
+            if("就是这里的逻辑没写好")
+            {
+                //重写。
+            }
+            if (i >=tree.length)//最后一个的动画效果已经实现了，还是没有找到想要的结果
+            {
+                    clearInterval(item);
+                    tree[tree.length - 1].style.backgroundColor = "white";
+                    alert("抱歉查找不到你想要的信息");
+                    Animation = false;
+                    return;
+            }
+            tree[i-1].style.backgroundColor="white";
+            tree[i].style.backgroundColor="blue";
+        }
+    }
+    init();
+
+</script>
+</body>
+</html>
+<!--①第一个问题是if与其他if语句之间的关系，我在lookfor函数的show函数中设定了两种情况下的动画效果。一开始是用的if...
+      else if... 格式，可是发现else if里的语句并不会执行，随后将其改为if... if... 便恢复了正常。if和else if之间的关系
+      显然没有弄明白。
+    ②这个程序的查询部分还没有写完。
+-->

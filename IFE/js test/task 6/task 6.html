@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task 4</title>
+    <link rel="stylesheet" href="task 6.css">
+</head>
+<body>
+
+<textarea type="text" maxlength="100" id="inputThing"></textarea>
+<button id="leftin">左侧入</button><button id="rightin">右侧入</button><button id="leftout">左侧出</button><button id="rightout">右侧出</button>
+<br>
+<div id="outputThing"><span></span></div>
+<br>
+<textarea type="text" maxlength="100" id="lkf"></textarea><button id="lookfor">查询</button>
+<script>
+
+    var leftin=document.getElementById("leftin");
+    var leftout=document.getElementById("leftout");
+    var rightin=document.getElementById("rightin");
+    var rightout=document.getElementById("rightout");
+    var iT=document.getElementById("inputThing");
+    var oT=document.getElementById("outputThing");
+    var oTchildren=document.getElementById("outputThing").children;
+    var lkf=document.getElementById("lkf");
+    var lookfor=document.getElementById("lookfor");
+    var regex=/[\s,、]/;//只要在这个[]后面加个*程序就GG,可能是因为[]里的东西不是子模式它修饰不了？
+
+    function init () {
+
+        leftin.onclick = function () {
+            if (regex.test(iT.value))//这里的正则验证没有问题。
+            {
+                reg(iT,"left");//经过测试问题出在这个函数里面。这里面估计是死循环了，if判定卡在这没有往下运行了，把这行注释掉程序就正常了。
+                iT.value=="";
+            }
+            else
+            {
+                var newImage = document.createElement("span");//这三行插入元素的步骤不要忘了，要牢记，虽然我并不怎么会去记。。
+                newImage.addEventListener("click", deleteImage);//因为span是不自带click监听器的，要给它手动添加一个
+                newImage.innerHTML = iT.value;
+                oT.insertBefore(newImage, oTchildren[0]);//若想要将创建的元素插入第一个子元素，可以利用insertBefore函数并且
+                // 创建一个想要插入的元素的子元素数组，将它插到子元素数组的[0]之前
+                iT.value = "";
+            }
+        }
+        rightin.onclick=function () {
+            if (regex.test(iT.value))
+            {
+                reg(iT, "right");
+                iT.value=="";
+            }
+            else
+            {
+                var newImage = document.createElement("span");//这三行插入元素的步骤不要忘了，要牢记，虽然我并不怎么会去记。。
+                newImage.addEventListener("click", deleteImage);
+                newImage.innerHTML = iT.value;
+                oT.appendChild(newImage);
+                iT.value = "";
+            }
+        }
+        leftout.onclick=function (){
+
+            alert(oTchildren[0].innerHTML);
+            oT.removeChild(oTchildren[0]);
+        }
+        rightout.onclick=function () {
+
+            var lastElement=oTchildren[oTchildren.length-1];//啊啊啊，一定要注意了，表示数组元素不要加‘.’“”直接连着写，别报错了还没反应。
+            alert(lastElement.innerHTML);
+            oT.removeChild(lastElement);
+        }
+        lookfor.onclick=function () {
+            find_same_part();
+        }
+    }
+    function deleteImage() {
+        oT.removeChild(this);//给span手动添加了click监听器后，就可以用this删除掉它了
+    }
+    init();
+    function  reg (data,lor)//当iT里有正则表达式内容时，这个函数是被成功调用了，那么问题就出现在里面具体的地方。
+    {
+            var na=new Array();
+            na=data.value.split(regex);
+            //var ne=[1,2,3,4];
+            //alert(ne);    //这三行代码都是用来测试na是否得到了被split后的短字符串数组，测试结果是得到了，那么问题就出在for循环里了。
+            //alert(na);
+        for(var i=0;i<na.length;i++)
+        {
+            var newImage=document.createElement("span");
+            newImage.addEventListener("click",deleteImage);//这里发现第一个问题，目前还不知道是不是导致GG的原因，deleteImage函数之前放到init()里面了，导致reg函数根本就调用不了它。还真是因为这个，但是出来的短字符串变成了undefined。
+            newImage.innerHTML= na[i];//找到第二个问题所在了就在这。问题出在我先入为主的以为split后得到的数组元素的文本值储存在value或是innerHTML、innerText等里面
+                                       //然而实际上它们都被直接存在数组元素本身里了，这个na数组并不是由getElementById得到的与HTML元素有关联的数组，它毛都没有。
+            if(lor=="left")
+            {
+                oT.insertBefore(newImage,oTchildren[0]);
+
+            }
+            else if(lor=="right")
+            {
+                oT.appendChild(newImage);
+            }
+        }
+    }
+
+    function find_same_part() {
+		var reg_creat=eval("/"+lkf.value+"/g");
+        for (var i=0; i < oTchildren.length; i++)
+        {
+            /*if(oTchildren[i].innerHTML.indexOf(data.value)>=0)//测试发现这个if判定被绕过去了，alert里的内容能被执行但是if条件并没满足。目前的情况貌似是因为没有加判定条件让它大于0。
+            {                                                   //加了条件之后就没什么事了，看来我关于Js的if语句对布尔值的判定的理解还是有些偏差。
+																//弄清楚了！是因为indexOf返回的是一个具体数字，这不是C语言，Js只要是数字就是True。
+			    oTchildren[i].style.color="black";
+				......											//现在的问题就是找出符合条件的部分然后更改它的style。													
+            }*/
+			var str=oTchildren[i].innerHTML.toString();
+			str=str.replace(reg_creat,"<b style='color:lightskyblue'>"+lkf.value+"</b>");
+			oTchildren[i].innerHTML=str;						//这里直接用replace方法替换符合条件的部分，将其改为包含html元素的属性的字符串。
+																//但是有可能的话，我还是希望能够用indexOf方法将其重构一遍，只是现在还没有掌握到更好的方法。
+		}
+	}														
+
+</script>
+</body>
+</html>
+<!--①程序正则验证GG的原因已经找到了，一是delete函数放到init函数里了，导致reg调用不了它，从而使得if判定卡住。另一个原始是
+      先入为主地以为split后的值存放到数组的属性里了，但是这个数组并不是靠gEBI函数得来的，所以它毛都没有，值直接存放在数组元素里了。
+    ②这里出现第二个问题了，输入一个数时，最后textarea会清零，但是输入含正则的数时，怎么弄都不会清零。
+	③第三个问题是最后查询部分的逻辑问题，这里学到了一个很好用的方法，先将textarea输入的内容转换成正则表达式，然后再用正则表达式的
+	  replace方法去替换掉与之匹配的字符串，通过用html元素的style属性来更改css样式，如"<span style='color:blue'>"+lkf+"</span>"
+-->

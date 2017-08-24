@@ -1,0 +1,121 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+</head>
+<body>
+<!-- 心好累，这个等以后Js学好了，一定要回来重新分析一遍，然后用正则表达式把循环提取元素的那部分重构一遍-->
+<ul id="source">
+    <li>北京空气质量：<b>90</b></li>
+    <li>上海空气质量：<b>70</b></li>
+    <li>天津空气质量：<b>80</b></li>
+    <li>广州空气质量：<b>50</b></li>
+    <li>深圳空气质量：<b>40</b></li>
+    <li>福州空气质量：<b>32</b></li>
+    <li>成都空气质量：<b>90</b></li>
+</ul>
+
+<ul id="resort">
+    <!--
+    <li>第一名：北京空气质量：<b>90</b></li>
+    <li>第二名：北京空气质量：<b>90</b></li>
+    <li>第三名：北京空气质量：<b>90</b></li>
+     -->
+
+</ul>
+
+<button id="sort-btn">排序</button>
+
+<script type="text/javascript">
+
+
+    //首先获取source列表，需要注意的是，这里我们要获取的是source列表中的li标签，
+    // 而不是ul标签。所以不能直接用 getElementById() 方法，可以通过 nodeObject.children 语法来帮助获取元素的子节点。
+    //这也是为什么之前利用for循环去显示更改后的source列表没有变化的原因，因为根本就没有提取到想要的li元素。
+
+    function getData() {
+        var source=document.getElementById("source").children;//这一行关于提取source的代码没问题
+        var data=new Array();//这一行声明数组的代码也没问题
+        var reg=/空气质量：/;
+        for(var i=0;i<source.length;i++)//问题就在这个提取字符串指定部分的循环里面
+        {
+            //data[i][0]=source.innerText.substr(0,7);//这两行的data[i][0]和data[i][1]与上面的new Array冲突了，开始并没有
+            //data[i][1]=source.innerText.substr(7,2);//指定出空间所以不能这样赋值给数组？但是我测试了一下，是可以在不定义
+            //data.push(data[i][0],data[i][1]);//空间长度的情况下赋值给数组元素的啊，还能alert出来，那问题出在哪了？
+            var text = source[i].innerText;
+            var node = text.split(reg);//[text.substr(0,7), text.substr(7,2)];//哈哈哈报仇了，虽然与一开始的直接用正则搜索再提取的想法不一样，但也是用了正则来处理提取数据的问题。下次学艺更精了再来试试一开始的想法。
+            data.push(node);//如果这里屏蔽data.push，那么点击按钮就没有反应
+        }
+        /*
+        var slist = document.getElementById('source').getElementsByTagName('li');
+        var data = [];
+        for(var i = 0; i < slist.length; i++){
+            var city = slist[i].innerHTML.split('空气质量：')[0];
+            var num = slist[i].children[0].innerHTML;
+            data.push([city, num]);
+        }*/
+        return data;
+
+        /*for (var i = 0; i < source.children.length; i++) {
+            replacement[i][0].replace(/\s/, /[\u4e00-\u9fa5]/);
+            replacement[i][1].replace(/\s/, /\d{2}/);
+            resort[i][0].replace(/\s/, replacement[i][0]);
+            resort[i][1].replace(/\s/, replacement[i][1]);
+        }
+        这里还是不要头硬用正则表达式提取了，等学会了再回头重构一遍
+        */
+
+    }
+    /* 目前看到的几种提取date的方法
+       ①我自己想的用正则表达式来提取匹配信息的方法，但是学艺不精，操作起来有点困难。
+       ②先将li中的text文本提取出来，保存在新建的字符串数组中，然后在用substr方法（如text.substr(0,2)）从第0索引开始提取长度为2的字符串。
+       ③提取li元素，储存在对象数组中，然后用split方法（array[i].innerHTML.split("想要切割掉的字符串或正则表达式"，切割数量））切掉多余文本字符串，得到想要的城市名
+       空气质量指标两部分。
+    */
+    function sortAqiData(data) {
+
+        data.sort(function (x,y)
+        {
+            return x[1]-y[1];
+        })
+        return data;
+    }
+
+    /*
+    这里的排序我还是有地方没弄懂，为什么在下面的btnHandle里面调用了sortAqiData，但是并没有给data.sort(function (x,y))传递参数，那么它是怎么知道自己要排序的东西是
+    data数组里的数据呢？并且getData得到的是一个二元数组，只用一元数组排序怎么能分辨的出来的？
+     */
+    function render(data) {
+
+        var resort=document.getElementById("resort");
+        var num=["第一名：","第二名：","第三名：","第四名：","第五名：","第六名：","第七名："]
+        for (var i=0;i<data.length;i++)
+        {
+            var newCode=document.createElement("li");
+            newCode.innerHTML=num[i]+data[i][0]+"空气质量：<b>"+data[i][1]+"</b>";
+            resort.appendChild(newCode);
+        }
+    }
+
+    function btnHandle() {
+        var aqiData = getData();
+        aqiData = sortAqiData(aqiData);
+        render(aqiData);
+        var btn=document.getElementById("sort-btn");
+        btn.disabled=true;
+    }
+
+    function init() {
+
+        var btn = document.getElementById("sort-btn");
+        btn.onclick = function () {
+            btnHandle();
+        }
+    }
+    init();//这个如果被屏蔽掉了，也会翻车
+    [].forEach.call(document.querySelectorAll("*"),function(a){a.style.outline="1px solid #"+(~~(Math.random()*(1<<24))).toString(16)});
+    //这是一行有意思的代码
+</script>
+</body>
+</html>

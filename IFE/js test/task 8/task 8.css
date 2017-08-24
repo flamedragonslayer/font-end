@@ -1,0 +1,44 @@
+#all {
+    display: flex;
+    flex-direction: row;
+    padding:15px 10px;
+    margin:5px;
+    border:1px solid black;
+    background-color: white;
+    width:900px;
+    height:300px;
+}
+.layer_1{
+    display: flex;
+    flex-direction: row;
+    padding:15px 10px;
+    margin:5px;
+    border:1px solid black;
+    background-color: white;
+    width:400px;
+    height: 200px;
+}
+
+.layer_2{
+    display: flex;
+    flex-direction: row;
+    padding:15px 10px;
+    margin:5px;
+    border:1px solid black;
+    background-color: white;
+    width:150px;
+    height: 160px;
+}
+
+.layer_3{
+    display: flex;
+    flex-direction: row;
+    padding:15px 10px;
+    margin:5px;
+    border:1px solid black;
+    background-color: white;
+    width:50px;
+    height:120px;
+}
+<!--这里不能偷懒只能老老实实每一个选择器都用一样的代码，如果自己不写的话，css里是不会默认继承父类的css样式的
+    这里有一些CSS属性也没弄明白。-->

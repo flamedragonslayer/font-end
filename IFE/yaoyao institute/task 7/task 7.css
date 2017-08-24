@@ -1,0 +1,19 @@
+th{
+    background-color: lightgrey;
+    text-align: center;
+    width: 70px;
+    height: 30px;
+}
+td{
+    text-align: center;
+    width: 70px;
+    height: 30px;
+    background-color: lightgray;
+    opacity: 0.3;
+}
+table{
+    position: absolute;
+    left: 750px;
+    top:300px;
+    border:1px solid black;
+}

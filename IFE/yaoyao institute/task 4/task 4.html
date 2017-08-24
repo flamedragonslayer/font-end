@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>听指令的小方块</title>
+    <link rel="stylesheet" href="task 4.css">
+</head>
+<body>
+<div id="block"  style="position: absolute;left:913px;top:293px;">
+    <div id="blue"></div><div id="red"></div>
+</div>
+<table border="1">
+    <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td> <!--因为rotate方法貌似只适用于div，所以新建了一个div-->
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<div id="dab">
+<input type="text" id="control">&nbsp&nbsp&nbsp<button id="do">执行</button>
+</div>
+<div id="buttons">
+    <br><button id="straight">前进</button><button id="left">左转</button><button id="right">右转</button><button id="back">后转</button>
+</div>
+<script type="text/javascript">
+
+    var control=document.getElementById("control");
+    var block=document.getElementById("block");
+    var left=document.getElementById("left");
+    var right=document.getElementById("right");
+    var straight=document.getElementById("straight");
+    var back=document.getElementById("back");
+    var top_num=293;
+    var left_num=913;
+    var i=0;
+
+    function init() {
+
+        left.onclick=turn_left;
+        right.onclick=turn_right;
+        back.onclick=turn_back;
+        straight.onclick=turn_straight;
+
+    }
+
+    function turn_left() {
+        i--;                                            //这里不知道为什么rotate外面用''框住就可以识别。
+        block.style.transform="rotate("+90*i+"deg)";//我想明白了，如果最外面直接用""框住，那整个这一块就是一个字符串(具体到旋转的角度时没有能够识别的数据)。
+                                                       //但是如果用''+a+''这样的格式，编译时会先将非字符串部分转换为字符串(这样就有可以识别的数据了)，再合并到一块。
+    }
+
+    function turn_right() {
+        i++;
+        for(var j=0;j<=i;j=j+(10/i))
+        {
+        setTimeout(block.style.transform="rotate("+90*i+"deg)",j);
+        }
+    }
+
+    function turn_back() {
+        i=i+2;
+        block.style.transform="rotate("+90*i+"deg)";
+    }
+
+    function turn_straight() {
+
+        var direction=Math.abs(i % 4);
+        if(top_num>149)
+        {
+            if(direction==0)
+            {
+                top_num -=48;
+                block.style.top = top_num + 'px';
+
+            }
+        }
+        if(top_num<533)
+        {
+            if (direction == 2)
+            {
+                top_num += 48;
+                block.style.top = top_num + 'px';
+            }
+        }
+        if(i>0)
+        {
+            if(left_num<1153)
+            {
+                if (direction == 1)
+                {
+                    left_num += 48;
+                    block.style.left = left_num + 'px';
+                }
+            }
+            if(left_num>769)
+            {
+                if (direction == 3)
+                {
+                    left_num -= 48;
+                    block.style.left = left_num + 'px';
+                }
+            }
+        }
+        if(i<0)
+        {
+            if(left_num>769)
+            {
+                if (direction == 1)
+                {
+                    left_num -= 48;
+                    block.style.left = left_num + 'px';
+                }
+            }
+            if(left_num<1153)
+            {
+                if(direction==3)
+                {
+                left_num+=48;
+                block.style.left=left_num+'px';
+                }
+            }
+        }
+    }
+
+    init();
+
+</script>
+</body>
+</html>
+<!--①这个程序的第一个恶心的地方，自己制作一个上方和左方带数字的10X10表格，在借鉴了几位的程序以及自己思考之后总算做出来了。
+      几个关键的难点分别是：首先表格直接用10X10的html来做，不设置th全部设为td，这样更方便，然后将td的CSS的width和height属性
+      设为想要的值，这样就能确保每一格大小一致。然后再设置td的text-align：center让其文字对齐。再然后，根据上方和左方的数字
+      对边框的不同要求，利用CSS的后代选择器nth-child(n)来设置border的top,bottom,left,right中的任意项为hidden，这样就可以隐藏
+	  相应的边框。再设置table的collapse属性，可以让它的内外边距合并。
+	②这里解决小方块前进和旋转的方法分别是先使用div的position属性，设定为absolute，只有在absolute下才能够设置其left、top值，
+	  将小方块固定确定xy坐标系，然后再编写函数，在点击按钮时，使它的绝对位置的坐标发生变化。至于旋转部分，则是利用其transform
+	  属性所带的rotate方法，在使用时要注意，为了能够动态改变旋转角度，要将实时数据部分和字符串部分利用""隔开。
+	③这里还有一个小毛病，就是每次移动之前会减去一部分位移，也就是说最后滑块还滑不到你想要的位置。然后因为这个小问题，导致
+	  限定滑块移动范围的条件也没有编写。我总算找到这个问题的原因了，我在最上面声明top_num和left_num时不知道为什么多设了一点，
+	  和小滑块在style里设置的不一样，改回来之后将位移步数稍作调整就好了。最后把所有bug全部修复了，代码已经够长了，input那懒得
+	  加指令了，反正总算是了却我一桩心事。
+-->

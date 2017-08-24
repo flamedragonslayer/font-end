@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+</head>
+<body>
+
+<h3>污染城市列表</h3>
+<ul id="aqi-list">
+
+</ul>
+
+<script type="text/javascript">
+
+    var aqiData = [
+        ["北京", 90],
+        ["上海", 50],
+        ["福州", 10],
+        ["广州", 50],
+        ["成都", 90],
+        ["西安", 100]
+    ];
+    (function () {
+    var list=document.getElementById("aqi-list");
+        for(var m=0;m<aqiData.length;m++)
+        {
+            if(aqiData[m][1]>60)
+            {
+                var newcode=document.createElement("li");
+                newcode.innerHTML=aqiData[m] ;
+                list.appendChild(newcode);
+            }
+
+        }
+        /*
+         在注释下方编写代码
+         遍历读取aqiData中各个城市的数据
+         将空气质量指数大于60的城市显示到aqi-list的列表中
+         */
+
+    })();
+
+</script>
+</body>
+</html>
+<!--①这里的问题是if语句括号里貌似只会显示  第一次遇到小于60的数之前的城市，一旦遇到小于60的数，则会停止循环判定，且后面的大于60的城市也不会再显示。
+      目前还没有想清楚是哪一步的逻辑错误了。
+    答：找到错误了，for循环中的判定条件写成了m<newList.length，它与if判定里的aqiData不相符，改为aqiData.length后就恢复正常了。
+    ②本来这个题目是还要把城市按照污染程度来排序的，但是我被一个最后还是没弄清一开始到底哪里出错了的小Bug给恶心到了，所以排序程序和排序数组就没写了。

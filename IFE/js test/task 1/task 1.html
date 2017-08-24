@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>天气输入测试</title>
+    <link rel="stylesheet" href="task 1.css">
+</head>
+<body>
+<div id="title">
+天气输入测试
+</div>
+<div id="all">
+    <div id="floor1">请输入北京今日天气：<input type="text" id="inputThing"><button id="yes">确认</button></div>
+
+    <div id="floor2">北京今日的天气是：<span id="content"></span></div>
+</div>
+    <script type="text/javascript">
+            var inputThing=document.getElementById("inputThing");
+            var content=document.getElementById("content");
+            var yes =document.getElementById("yes");
+            yes.onclick=function ()
+            {
+                content.innerHTML= inputThing.value;
+            }
+    </script>
+</body>
+</html>
+
+<!--①请注意这里的form元素有毒，不知道为什么只要在两个input前后加上form，最后的content内容就保留不了，会还原成原来的样子
+    ②另外记住如果把js文件放在head里面，那会使交互效果没有反应，因为它已经提前加载了，对之后的内容没有反应-->

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id ="aa"><br>
+<button id="bb">确认</button>
+<p id="cc">aaa</p>
+<script>
+
+    var aa=document.getElementById("aa");
+    var bb=document.getElementById("bb");
+    var cc=document.getElementById("cc");
+
+    bb.onclick=function ( ) {
+       cc.innerHTML=aa.value;
+    }
+
+</script>
+</body>
+</html>

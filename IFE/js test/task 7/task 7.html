@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task 7</title>
+    <link rel="stylesheet" href="task 7.css">
+</head>
+<body>
+<button id="f_map">前序遍历</button><button id="m_map">中序遍历</button><button id="e_map">后序遍历</button>
+<div id="all">
+    <div class="layer_1">
+        <div class="layer_2">
+            <div class="layer_3"></div>
+            <div class="layer_3"></div>
+        </div>
+        <div class="layer_2">
+            <div class="layer_3"></div>
+            <div class="layer_3"></div>
+        </div>
+    </div>
+    <div class="layer_1">
+         <div class="layer_2">
+             <div class="layer_3"></div>
+             <div class="layer_3"></div>
+         </div>
+         <div class="layer_2">
+            <div class="layer_3"></div>
+             <div class="layer_3"></div>
+         </div>
+    </div>
+</div>
+<!--这里体现二叉树动画的载体，需要自己在html里面先写出来，当然也可以用Js配合for循环来自定义不过如果不是大型二叉树就没必要了，太麻烦了-->
+<script>
+var f_map=document.getElementById("f_map");
+var m_map=document.getElementById("m_map");
+var e_map=document.getElementById("e_map");
+var all=document.getElementById("all");
+var tree=[];
+
+
+function init() {
+
+    f_map.onclick=f_click;
+    m_map.onclick=m_click;
+    e_map.onclick=e_click;
+
+}
+function f_click(){
+    tree=[];     //将之前已经塞了东西的tree归零。不清零的话，会先按照tree里之前的顺序去执行动画效果，再按照新加入的顺序去执行动画效果。
+    f_order(all);//将all里的div按照想要的遍历顺序加入tree里面。通过这个函数能得到一个想要的顺序的树。
+    render();    //遍历函数的作用不是边递归边执行其他代码如更改颜色，而是将数组排序。
+
+}
+function m_click() {
+    tree=[];
+    m_order(all);
+    render();
+}
+function e_click() {
+    tree=[];
+    e_order(all);
+    render();
+}
+function f_order(node) {
+    if(node)
+    {
+        tree.push(node);//先push根节点
+        f_order(node.firstElementChild);//再push左子树
+        f_order(node.lastElementChild);//再push右子树
+    }
+}
+function m_order(node) {
+    if(node)
+    {
+        m_order(node.firstElementChild);
+        tree.push(node);
+        m_order(node.lastElementChild);
+    }
+}
+function e_order(node) {
+    if(node)
+    {
+        e_order(node.firstElementChild);
+        e_order(node.lastElementChild);
+        tree.push(node);
+    }
+}
+/*function change_color(node) {
+    node.style.backgroundColor="yellow";//这里是本来想植入到遍历函数中随着遍历一块更改颜色的函数。
+}*/
+function render(){
+    var i=0;
+    tree[i].style.backgroundColor="yellow";
+    var item=setInterval(show,500);        //要给setInterval赋值一个id，不然没法用clearInterval清楚定时器，不知道如果不赋值会不会无法运行。
+    function show()                       //定时器里要执行的函数是可以单独拎出来写的，之所以出现一开始出现的卡顿问题是因为给show加了个括号。
+    {                                      //去掉定时器里函数的括号后就恢复正常了。
+        i++;//配合定时器的1秒，循环实现i的增加。
+        if (i>=tree.length )//最后一个的动画效果已经实现了，这里是最后一个在加一个
+        {
+            clearInterval(item);
+            tree[tree.length-1].style.backgroundColor = "white";//这句可能是多余的，待会执行的时候删掉试试。
+            return;
+        }
+        tree[i - 1].style.backgroundColor = "white";
+        tree[i].style.backgroundColor = "yellow";
+    }
+}
+
+init();
+
+</script>
+</body>
+</html>

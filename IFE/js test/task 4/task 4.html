@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task 4</title>
+</head>
+<body>
+
+<input type="text" maxlength="10" id="inputThing">
+
+<button id="leftin">左侧入</button><button id="rightin">右侧入</button><button id="leftout">左侧出</button><button id="rightout">右侧出</button>
+<br>
+<div id="outputThing"><span></span></div>
+
+<script>
+
+    var leftin=document.getElementById("leftin");
+    var leftout=document.getElementById("leftout");
+    var rightin=document.getElementById("rightin");
+    var rightout=document.getElementById("rightout");
+    var iT=document.getElementById("inputThing");
+    var oT=document.getElementById("outputThing");
+    var oTchildren=document.getElementById("outputThing").children;
+
+    function getImage(data) {
+
+            data.style.display="inline-block";//让内联元素可以像块元素一样设置高宽等，不过我不设置这个也可以改变宽高啊
+            data.style.cssText="content:10px; margin:0px 10px;font-size:30px;color:white ";
+            //这里我用学到的知识呈现了三种不同的方法来改变CSS样式。(有一个被误删了，懒得加了)
+            data.style.backgroundColor="red";//注意这里的red是字符串，要带引号，不然没反应的。
+            data.style.textAlign="center";//这里用了好几种不同方法设置居中属性，好像都没什么用。找到原因了，因为手贱在
+                                            //newImage.innnerHTML=iT.value+"  "加了个两个空格。
+            data.style.cursor="pointer";//改变光标外形
+
+    }//这里可以用外带的css文件的选择器来设置属性，为什么我要用js函数来改变，哎哟，好蠢。
+
+    function init () {
+
+        leftin.onclick = function () {
+
+            var newImage=document.createElement("span");//这三行插入元素的步骤不要忘了，要牢记，虽然我并不怎么会去记。。
+            newImage.addEventListener("click",deleteImage);//因为span是不自带click监听器的，要给它手动添加一个
+            newImage.innerHTML= iT.value;
+            oT.insertBefore(newImage,oTchildren[0]);//若想要将创建的元素插入第一个子元素，可以利用insertBefore函数并且
+            getImage(newImage);// 创建一个想要插入的元素的子元素数组，将它插到子元素数组的[0]之前
+            inputThing.value="";
+        }
+        rightin.onclick=function () {
+
+            var newImage=document.createElement("span");//这三行插入元素的步骤不要忘了，要牢记，虽然我并不怎么会去记。。
+            newImage.addEventListener("click",deleteImage);
+            newImage.innerHTML= iT.value;
+            oT.appendChild(newImage);
+            getImage(newImage);
+            inputThing.value="";
+        }
+        leftout.onclick=function (){
+
+            alert(oTchildren[0].innerHTML);
+            oT.removeChild(oTchildren[0]);
+        }
+        rightout.onclick=function () {
+
+            var lastElement=oTchildren[oTchildren.length-1];//啊啊啊，一定要注意了，表示数组元素不要加‘.’“”直接连着写，别报错了还没反应。
+            alert(lastElement.innerHTML);
+            oT.removeChild(lastElement);
+        }
+        function deleteImage() {
+            oT.removeChild(this);//给span手动添加了click监听器后，就可以用this删除掉它了
+        }
+    }
+    init();
+
+</script>
+</body>
+</html>
+<!--这个task最难的地方就在于怎样点击span触发自删除函数，这里我用的方法是在新建一个span时给它用addEventLisenter添加一个click监听器去绑定自删除函数
+    这种方法的缺点就是不方便一次只能传入一个函数，应该还有别的更方便的方法，有待发现。
+    这里还有一个无足轻重的小问题没解决，就是怎么另红框里的文字居中显示。不过我懒得管了。-->

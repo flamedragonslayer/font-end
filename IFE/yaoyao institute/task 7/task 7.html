@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task 7</title>
+    <link rel="stylesheet" href="task 7.css">
+</head>
+<body>
+<table id="tb">
+    <tr id="tr1">
+        <th>姓名</th>
+        <th id="px1">语文</th>
+        <th id="px2">数学</th>
+        <th id="px3">英语</th>
+        <th id="px4">总分</th>
+    </tr >
+    <tr id="tr2">
+        <td>小明</td>
+        <td>78</td>
+        <td>57</td>
+        <td>64</td>
+        <td>222</td>
+    </tr>
+    <tr id="tr3">
+        <td>小红</td>
+        <td>62</td>
+        <td>69</td>
+        <td>94</td>
+        <td>240</td>
+    </tr>
+    <tr id="tr4">
+        <td>小亮</td>
+        <td>65</td>
+        <td>51</td>
+        <td>89</td>
+        <td>205</td>
+    </tr>
+</table>
+<script>
+
+    var tb=document.querySelector("#tb");
+
+    function handle_click() {
+        var i=2;
+        /*while(i<4) {
+            document.querySelector("table tr th:nth-child("+i+")").addEventListener('click',function () {
+                changeOrder(i-1);//这里的i是列数
+            })
+            i++;
+        }*///这里用循环来给表头添加点击程序后面就得GG,它只会显示最后一列的数值,所以迫不得已只能一列一列加了。
+        document.querySelector("table tr th:nth-child(2)").addEventListener('click',function () {
+            changeOrder(1);
+        })
+        document.querySelector("table tr th:nth-child(3)").addEventListener('click',function () {
+            changeOrder(2);
+        })
+        document.querySelector("table tr th:nth-child(4)").addEventListener('click',function () {
+            changeOrder(3);
+        })
+        document.querySelector("table tr th:nth-child(5)").addEventListener('click',function () {
+            changeOrder(4);
+        })
+    }
+
+    function changeOrder(order) {
+        var order_array=new Array;
+        for(var k=2;k<5;k++) {
+            order_array.push(document.getElementById('tr'+k).children[order].innerHTML);//这里关于提取后代的innerHTML做了很多尝试
+            //有一些忘了反正怎么调都没反应，如使用tb.children[k].children[order].innerHTML，怎么都没反应，特别是加了HTML后
+            // 若是把HTML删除掉则会alert出undefined。还有一个就是使用document.querySelector()它的括号内只能是选择器，不能是
+            //字符串加数字的类型，字符串加数字只能用在如getElementById()中，因为它的()里是String类型。
+        }
+        for(var j=0;j<3;j++) {
+            var temp;
+            if (order_array[j] < order_array[j+1]) {
+                for(var j=0;j<4;j++) {
+                    if (j == 0) {
+                        temp = document.getElementById('tr' + 2).innerHTML;
+                        document.getElementById('tr' + 2).innerHTML = document.getElementById('tr' + 3).innerHTML;
+                        document.getElementById('tr' + 3).innerHTML = temp;
+                    }
+                    if (j == 1) {
+                        temp = document.getElementById('tr' + 3).innerHTML;
+                        document.getElementById('tr' + 3).innerHTML = document.getElementById('tr' + 4).innerHTML;
+                        document.getElementById('tr' + 4).innerHTML = temp;
+                    }
+                }
+                /*{
+                 alert(document.getElementById('tr'+2+j).innerHTML);
+                 temp = document.getElementById('tr'+j+2).innerHTML;
+                 document.getElementById('tr'+j+2).innerHTML=document.getElementById('tr'+j+3).innerHTML;
+                 document.getElementById('tr'+j+3).innerHTML = temp;
+                 }
+                *///本来是这四行代码加一个循环搞定的，但是getElementById的()里面就是不能用j，用纯数字就没问题，只要带上j绝壁GG。
+                //最后只能出此下策，用if语句判定，把j拎出来。
+            }
+        }
+    }
+    
+    function init() {
+        handle_click();
+    }
+
+    init();
+
+</script>
+</body>
+</html>
+
+</body>
+</html>
+<!--这里的排序逻辑最后还是错了，妈个鸡，气死我了，气消了再来改
+    其实我还是想先去做打砖块的游戏，不然早晚得给这题目气炸-->

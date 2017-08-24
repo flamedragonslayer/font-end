@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮出层</title>
+    <link rel="stylesheet" href="task 6.css">
+</head>
+<button id="boom">弹出浮出层</button>
+<div id="all" style="display: none">
+    <div id="title">&nbsp弹出层标题</div>
+    <div id="content">&nbsp弹出层文字
+        <div id="cancel">取消</div>
+        <div id="sure">确认</div>
+    </div>
+</div>
+<div id="wrap" display="none"></div>
+<body>
+<script>
+
+    function init()
+    {
+
+        document.getElementById('sure').addEventListener('click',function ()
+        {
+            alert("知道了，滚吧");
+            all.style.display="none";
+            wrap.style.display='none';
+        });
+        document.getElementById('cancel').addEventListener('click',function ()
+        {
+            all.style.display="none";
+        });
+        boom.onclick=function ()
+        {
+            all.style.display="block";
+            wrap.style.display='block';
+            hide();
+
+        }
+    }
+
+    function hide()
+    {
+        wrap.style.height=970+'px';
+        wrap.style.width=1920+'px';
+    }
+    init();
+
+</script>
+</body>
+</html>

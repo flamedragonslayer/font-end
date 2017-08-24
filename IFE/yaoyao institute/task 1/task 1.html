@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单验证</title>
+    <link rel="stylesheet" href="task 1.css">
+</head>
+<body>
+<div id="all">
+    <div id="air"></div>
+    <div class="information"><span class="name">名称</span><input type="text" class="iT" id="iT1"><button class="bT" id="bT1">验证</button> </div>
+    <span class="sT" id="sT1">必填，长度为4-16个字符</span>
+    <div class="information"><span class="name">名称</span><input type="text" class="iT" id="iT2"><button class="bT" id="bT2">验证</button> </div>
+    <span class="sT" id="sT2"></span>
+    <div class="information"><span class="name">名称</span><input type="text" class="iT" id="iT3"><button class="bT" id="bT3">验证</button> </div>
+    <span class="sT" id="sT3"></span>
+</div>
+
+<script type="text/javascript">
+    var bT_button1=document.getElementById("bT1");
+    var bT_button2=document.getElementById("bT2");
+    var bT_button3=document.getElementById("bT3");
+    var iT1=document.getElementById("iT1");
+    var iT2=document.getElementById("iT2");
+    var iT3=document.getElementById("iT3");
+    var sT1=document.getElementById("sT1");
+    var sT2=document.getElementById("sT2");
+    var sT3=document.getElementById("sT3");
+    var reg= /[^\u0000-\u00FF]{4,16}/;
+
+
+    function init() {
+        bT_button1.onclick=function () {
+            click(iT1,sT1);
+        }
+        bT_button2.onclick=function () {
+            click(iT2,sT2);//貌似火狐浏览器会自己把html里的元素声明到js里面。虽然它会帮忙弄，但是为了以防万一还是自己设定好吧。
+        }
+        bT_button3.onclick=function () {
+            click(iT3,sT3);
+        }
+    }
+    function click(iT,sT) {
+
+        if(!reg.test(iT.value))
+        {
+
+            sT.innerHTML="名称格式输入不正确";
+            sT.style.color="red";
+            sT.style.textAlign="left";//左对齐没法实现
+        }
+        else if(reg.test(iT.value)){
+            sT.innerHTML="名称格式正确";
+            sT.style.color="green";
+
+        }
+    }
+
+    init();
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单验证</title>
+    <link rel="stylesheet" href="task 2.css">
+</head>
+
+<form id="all" method="post"  action="task%202.html">
+    <div id="air"></div>
+    <div class="information"><span class="name">名称</span><input type="text" class="iT" id="iT1"></div>
+    <span class="sT" id="sT1"></span>
+    <div class="information"><span class="name">密码</span><input type="password" class="iT" id="iT2"></div>
+    <span class="sT" id="sT2"></span>
+    <div class="information"><span class="name">密码确认</span><input type="password" class="iT" id="iT3"></div>
+    <span class="sT" id="sT3"></span>
+    <div class="information"><span class="name">邮箱</span><input type="text" class="iT" id="iT4"></div>
+    <span class="sT" id="sT4"></span>
+    <div class="information"><span class="name">手机</span><input type="text" class="iT" id="iT5"></div>
+    <span class="sT" id="sT5"></span>
+    <br>
+    <button id="submit">提交</button>
+
+</form>
+<script type="text/javascript">
+
+    var reg_name= /[^\u0000-\u00FF]{4,16}/;
+    var reg_code=/.{6,20}/;
+    var reg_email=/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    var reg_cell=/^1\d{10}$/;//要在这里前面和后面分别加上^和$，不然输入数字数量大于11也会显示验证正确。
+
+
+    function init() {
+       click_name();
+       click_code();
+       click_vertify();
+       click_email();
+       click_cell();
+       submit.onclick=submitNode;
+    }
+    function submitNode()
+    {
+        if(reg_name.test(iT1.value) &&reg_code.test(iT2.value) && iT3.value == iT2.value &&reg_email.test(iT4.value)&&reg_cell.test(iT5.value))
+        {
+            document.getElementById("all").submit();//传输信息的代码。
+        }
+        else
+        {
+            alert("信息输入有误！");
+        }
+    }
+    function click_name()
+    {
+        iT1.onblur=function ()
+        {
+            if(iT1.value!="")
+            {
+                if (!reg_name.test(iT1.value))
+                {
+                    sT1.innerHTML = "名称格式输入不正确";
+                    sT1.style.color = "red";
+                }
+                else if (reg_name.test(iT1.value))
+                {
+                    sT1.innerHTML = "名称格式正确";
+                    sT1.style.color = "green";
+                }
+            }
+        }
+        iT1.onfocus=function ()//一开始快被这里的逻辑bug绕死了。
+        {
+            if(iT1.value=="")//这里的未输入判定不能用null，只能用""。因为null是对于对象而言的。
+            {
+                sT1.innerHTML="必填，长度为4-16个字符";
+                sT1.style.color="gray";
+            }
+            else
+            {
+                sT1.innerHTML="";
+            }
+        }
+    }
+
+    function click_code()
+    {
+        iT2.onblur = function ()
+        {
+            if(iT2.value!="")
+            {
+                if (!reg_code.test(iT2.value))
+                {
+                    sT2.innerHTML = "密码格式输入不正确";
+                    sT2.style.color = "red";
+                }
+                else if (reg_code.test(iT2.value))
+                {
+                    sT2.innerHTML = "密码格式正确";
+                    sT2.style.color = "green";
+                }
+            }
+        }
+        iT2.onfocus= function ()
+        {
+            if (iT2.value == "")
+            {
+                sT2.innerHTML = "必填，长度为6-20个字符";
+                sT2.style.color = "gray";
+            }
+            else
+            {
+                sT2.innerHTML="";
+            }
+        }
+    }
+
+    function click_vertify()
+    {
+        iT3.onblur = function ()
+        {
+            if (iT3.value !="")
+            {
+                if (iT3.value == iT2.value)
+                {
+                    sT3.innerHTML = "密码输入一致";
+                    sT3.style.color = "green";
+                }
+                else if (iT3.value != iT2.value)
+                {
+                    sT3.innerHTML = "密码输入不一致";
+                    sT3.style.color = "red";
+                }
+            }
+        }
+        iT3.onfocus = function ()
+        {
+            if (iT3.value == "")
+            {
+                sT3.innerHTML = "*";
+                sT3.style.color = "red";
+            }
+            else
+            {
+                sT3.innerHTML="";
+            }
+        }
+    }
+
+    function click_email()
+    {
+        iT4.onblur = function ()
+        {
+            if(iT4.value!="")
+            {
+                    if (!reg_email.test(iT4.value))
+                    {
+                        sT4.innerHTML = "邮箱格式输入不正确";
+                        sT4.style.color = "red";
+                        sT4.style.textAlign = "left";//左对齐没法实现
+                    }
+                    else if (reg_email.test(iT4.value))
+                    {
+                        sT4.innerHTML = "邮箱格式正确";
+                        sT4.style.color = "green";
+                    }
+            }
+        }
+        iT4.onfocus = function ()
+        {
+            if (iT4.value == "")
+            {
+                sT4.innerHTML = "*";
+                sT4.style.color = "red";
+            }
+            else
+            {
+                sT4.innerHTML="";
+            }
+        }
+    }
+    function click_cell()
+    {
+        iT5.onblur= function ()
+        {
+            if(iT5.value!="")
+            {
+                if (!reg_cell.test(iT5.value))
+                {
+                    sT5.innerHTML = "手机格式输入不正确";
+                    sT5.style.color = "red";
+                    sT5.style.textAlign = "left";//左对齐没法实现
+                }
+                else if (reg_cell.test(iT5.value))
+                {
+                    sT5.innerHTML = "手机格式正确";
+                    sT5.style.color = "green";
+                }
+            }
+        }
+        iT5.onfocus = function ()
+        {
+            if (iT5.value == "")
+            {
+                sT5.innerHTML = "*";
+                sT5.style.color = "red";
+            }
+            else
+            {
+                sT5.innerHTML="";
+            }
+        }
+    }
+
+    init();
+
+
+</script>
+</body>
+</html>
+<!--①不知道为什么onblur和onfocus这样就用不了，如if(iT.onblur){...}，这样就触发不了{...}中的事件。但是将其单独拎出来或者放入init中就可以调用了。
+      如iT1.onfocus=function () {...}或 iT2.onblur=function () {...}这样就可以用，目前还没发现问题出现的原因。
+    ②这个程序真是一堆bug，value=""下才会触发的onfocus在文本有内容时就触发了，调试了很多次还是没找到原因。问题解决了,但是原因还没具体确定下来
+      很可能是逻辑顺序颠倒的原因，换了一个逻辑顺序之后问题就消失了。
+    ③这个程序还可以进一步优化的，但是这个过程得把我气死，做到达标效果就不做了。好吧最后还是优化完了。
+-->

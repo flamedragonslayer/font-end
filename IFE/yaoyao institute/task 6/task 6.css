@@ -1,0 +1,81 @@
+button
+{
+    cursor: pointer;
+    background-color: silver;
+    border-radius: 100px;
+    width: 100px;
+    height: 100px;
+    font-family: 默陌肥圆手写体;
+    font-size: 26px;
+    color: gray;
+    border-color: transparent;
+    margin: 380px 47%;
+    z-index: 0;
+}
+#all
+{
+    position:absolute;
+    left:750px;
+    top:350px;
+    height:250px;
+    width:400px;
+    z-index: 1;
+}
+#title
+{
+    cursor: move;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    height:20%;
+    font-weight: bold;
+    font-size: 25px;
+    background-color: gray;
+    text-align:left;
+}
+#content
+{
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 80%;
+    font-weight: lighter;
+    font-size: 20px;
+    background-color: silver;;
+    text-align: left;
+}
+#sure
+{
+    cursor: pointer;
+    float: right;
+    border-radius: 20px;
+    background-color:gray;
+    height: 30px;
+    width:70px;
+    margin:10px;
+    text-align: center;
+    padding:0px;
+    font-size: 20px;
+    margin-top: 160px;
+}
+#cancel
+{
+    cursor: pointer;
+    float: right;
+    border-radius: 20px;
+    background-color:gray;
+    height: 30px;
+    width:70px;
+    margin: 10px;
+    text-align: center;
+    padding: 0px;
+    font-size: 20px;
+    margin-top: 160px;
+}
+#wrap
+{
+    background-color:black;
+    opacity: 0.1;
+    position: absolute;
+    z-index: -1;
+    left: 0px;
+    top:0px;
+}

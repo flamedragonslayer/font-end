@@ -1,0 +1,58 @@
+#control{
+    border-radius: 10px;
+    border: 2px solid black;
+}
+#control:hover{
+    border-color: orange;
+}
+
+#do{
+    border: 2px solid transparent;
+    font-family: 微软雅黑;
+    border-radius: 10px;
+    background-color: #daff68;
+}
+#do:hover {
+    border-color: greenyellow;
+}
+
+#dab{
+    margin:0px 0px 0px 907px;
+}
+
+#buttons{
+    margin:0px 0px 0px 875px;
+}
+
+table{
+    border-collapse: collapse;
+    margin: 100px auto 30px auto;
+}
+
+table tr:nth-child(1) td{
+    border-top:hidden;
+    border-right: hidden;
+}
+table tr td:nth-child(1){
+    border-left: hidden;
+    border-top: hidden;
+    border-bottom: hidden;
+}
+td{
+    text-align: center;
+    width: 45px;
+    height: 45px;
+}
+#block{
+    width:45px;
+    height:45px;
+    padding:0px;
+}
+#blue{
+    height: 30%;
+    background-color:blue;
+}
+#red{
+    height: 70%;
+    background-color: red;
+}

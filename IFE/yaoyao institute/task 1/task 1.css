@@ -1,0 +1,49 @@
+#all{
+    width:500px;
+    height:300px;
+    text-align: center;
+    border: 2px black solid;
+    margin:250px 650px;
+    border-radius: 20px;
+}
+
+button{
+    position: relative;
+    margin: 0px 20px;
+    width: 50px;
+
+    text-decoration: none;
+    font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    line-height: 25px;
+    text-align: center;
+    background-color: transparent;
+
+    border-radius: 10px;
+}
+button:hover {
+    border-color: yellow;
+}
+.name{
+    font-size: 14px;
+    font-family: 微软雅黑;
+    margin: 0px 20px;
+}
+.sT {
+    font-size:14px;
+    color: gray;
+    margin-right: 5px;
+}
+.information{
+    margin-top: 20px;
+}
+#air{
+    margin-top: 60px;
+}
+iT{
+    border: 2px solid;
+}
+.iT:hover{
+    border: 2px solid;
+    border-color: cyan;
+}

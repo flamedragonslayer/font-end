@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>task 3</title>
+    <link rel="stylesheet" href="task 3.css">
+</head>
+<body>
+<form>
+    <div id="all">
+        <div id="choice">
+            <input type="radio" name="sOrNos" value="在校生" id="sn1">在校生&nbsp&nbsp
+            <input type="radio" name="sOrNos" value="非在校生" id="sn2">非在校生
+        </div>
+        <div id="select" display="block">学校&nbsp&nbsp&nbsp
+            <select id="city">
+                <option value="北京">北京</option>
+                <option value="天津">天津</option>
+            </select>&nbsp&nbsp&nbsp
+            <select id="university">
+                <option value="北京大学">北京大学</option>
+                <option value="清华大学">清华大学</option>
+            </select>
+        </div>
+        <div id="jobplace" display="none">
+            就业单位&nbsp<input type='text' size='30' id='iT'>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    var city=document.getElementById("city");
+    var university=document.getElementById("university");
+    var select=document.getElementById("select");
+    var jobplace=document.getElementById("jobplace");
+    var uni=["<option value=‘北京大学’>北京大学</option><option value='清华大学'>清华大学</option>",
+              "<option value=‘天津大学’>天津大学</option><option value='南开大学'>南开大学</option>"];
+
+
+    function init() {
+        jobplace.style.display="none";//之所以出现各种毛病没法解决的原因就是使用Js更改display属性时没有在前面写style，display本质是CSS属性。
+        select.style.display="block";
+        change();
+        selection();
+    }
+
+    function change() {
+        sn1.onchange=function () {
+            jobplace.style.display="none";
+            select.style.display="block";
+        }
+        sn2.onchange=function () {
+            select.style.display="none";
+            jobplace.style.display="block";
+        }
+    }
+    /*function change()
+    {
+       sn1.onchange=function () {
+           select.innerHTML = "学校&nbsp&nbsp&nbsp <select id='city'> <option value='北京'>北京</option> <option value='天津'>天津</option> </select>&nbsp&nbsp&nbsp <select id='university'> <option value='北京大学'>北京大学</option> <option value='清华大学'>清华大学</option> </select>";
+       }
+        sn2.onchange=function () {
+           select.innerHTML = "就业单位&nbsp<input type='text' size='30' id='iT'>"
+       }//点击"非在校生"选项时，出现的内容
+    }*/
+
+    function selection()
+    {
+        city.onchange=function ()
+        {
+            university.innerHTML=uni[this.options.selectedIndex];//要想能够随时使用onchange来改变select里面的值，就必须在一开始的DOM里有这个select
+                                                                     //不能调用后面用Js代码添加的html内容。
+        }
+
+    }
+
+    init();
+
+</script>
+</body>
+</html>
+<!--①困扰了我三天的问题终于被解决了，如上面备注所说，之所以selection函数无法影响html内容，是因为在一开始我并没有在html中编写出
+      需要控制的DOM，而是之后在Jsz中用代码添加进去的，因此在浏览器加载Js文件时无法有效地去利用这个函数控制浏览器端的页面。
+    ②我的天，又出bug了，我为什么要手贱去改?bug忘了是啥了，但是现在解决了开始的切换在校生与非在校生之间的状态的问题。主要是使用
+      CSS的display属性来设置div块是block或none，之所以一开始没反应的原因就是使用Js更改display属性时没有在前面写style，display
+      本质是CSS属性。另外还需要在init中一开始声明网页中显示的默认状态，不然它会使得两个div都显示出来。
+-->
