@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReactButton</title>
+    <script  src="../../build/react.js"></script>
+    <script  src="../../build/react-dom.js"></script>
+    <script  src="../../build/browser-min.js"></script>
+    <style type="text/css">
+        .box{
+            float: left;
+            margin:20px;
+        }</style>
+</head>
+<body>
+<div id="Primary" class="box"></div>
+<div id="Success" class="box"></div>
+<div id="Danger" class="box"></div>
+<script type="text/babel">
+    var MyReactButton=React.createClass({
+        getDefaultProps:function(){
+            return{
+                children:'button',
+                pattern:'Primary'
+            };
+        },
+        getInitialState:function(){
+            return{
+                opacity:'0.92',
+            };
+        },
+        handleMouseover:function(){
+            this.setState({
+                opacity:1
+            });
+        },
+        handleMouseout:function(){
+            this.setState({
+                opacity:'0.92'
+            });
+
+        },
+        render:function(){
+            var styles={
+                Primary:{
+                    opacity:this.state.opacity,
+                    backgroundColor:'#2e6da4',
+                    padding:'6px 12px',
+                    color:'#fff',
+                    border:'1px solid #2e6da4',
+                    borderRadius:'4px',
+                    fontSize:'14px',
+                },
+                Success:{
+                    opacity:this.state.opacity,
+                    backgroundColor:'#4cae4c',
+                    padding:'6px 12px',
+                    color:'#fff',
+                    border:'1px solid #4cae4c',
+                    borderRadius:'4px',
+                    fontSize:'14px'
+                },
+                Danger:{
+                    opacity:this.state.opacity,
+                    backgroundColor:'#d43f3a',
+                    padding:'6px 12px',
+                    color:'#fff',
+                    border:'1px solid #d43f3a',
+                    borderRadius:'4px',
+                    fontSize:'14px'
+                },
+            };
+            return(
+                    <button style={styles[this.props.pattern]} className={this.props.className} onMouseOver={this.handleMouseover} onMouseOut={this.handleMouseout}>{this.props.children}</button>
+            );
+        }
+    });
+
+    ReactDOM.render(<MyReactButton pattern='Primary'>Primary</MyReactButton>,
+        document.getElementById('Primary'));
+    ReactDOM.render(<MyReactButton pattern='Success'>Success</MyReactButton>,
+        document.getElementById('Success'));
+    ReactDOM.render(<MyReactButton pattern='Danger'>Danger</MyReactButton>,
+        document.getElementById('Danger'));
+</script>
+</body>
+</html>

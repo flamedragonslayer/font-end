@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello world</title>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser-min.js"></script>
+
+</head>
+<body>
+<div id="gg"></div>
+<script type="text/babel">
+
+   var Example=React.createClass({
+       getInitialState:function(){
+           return{enable:false};
+       },
+       handleClick:function(event){
+           this.setState({enable:!this.state.enable});
+       },
+       render:function () {
+           return(
+               <p>
+                   <input type="text" disabled={this.state.enable}/>
+                   <button onClick={this.handleClick}>Change State</button>
+
+               </p>
+           );
+       }
+   });
+
+   ReactDOM.render(
+       <Example/>,
+       document.getElementById("gg")
+   );
+    //JSX 的基本语法规则：遇到 HTML 标签（以 < 开头），就用 HTML 规则解析；遇到代码块（以 { 开头），就用 JavaScript 规则解析。
+
+</script>
+</body>
+</html>
