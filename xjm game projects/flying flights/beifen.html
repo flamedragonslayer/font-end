@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flying flights</title>
+    <link rel="stylesheet" href="flying flights.css">
+</head>
+<body>
+<canvas id="cv" width="500" height="650"></canvas>
+<script>
+
+    var cv=document.getElementById('cv');
+    var context=cv.getContext('2d');
+
+    function player_flight() {
+        var o=new Image();
+        var o
+        {
+            o.src='player_flight.png';
+            o.hzb=220.5;
+            o.zzb=605;
+            o.speed=7//如果这里速度设置的太快，飞机就会因为每一帧的调整步数过多超出边界
+        }
+        return o;
+    }
+
+    function play()
+    {
+        var leftDown=false;
+        var rightDown=false;
+        var upDown=false;
+        var downDown=false;
+        var fps=35;
+
+        var pf=new player_flight();
+
+        var enemy=new Array();
+        var enemy_number=5;
+        for(var k=0;k<enemy_number;k++)
+        {
+            enemy[k]=new enemy_flights(k);
+        }
+
+        var bullet=new Array();
+        var bullet_number=0;
+
+        window.addEventListener('keydown',function (event) {
+            var k=event.key;
+            if(k=='a')
+            {
+                leftDown=true;
+            }
+            else if(k=='d')
+            {
+                rightDown=true;
+            }
+            else if(k=='w')
+            {
+                upDown=true;
+            }
+            else if(k=='s')
+            {
+                downDown=true;
+            }
+        })
+
+        window.addEventListener('keyup',function () {
+            leftDown=false;
+            rightDown=false;
+            upDown=false;
+            downDown=false;
+        })
+
+        function animation_control() {
+            setInterval(function () {
+                context.clearRect(0,0,cv.width,cv.height);
+                //player_move
+                if (pf.hzb>0&&leftDown == true) {
+                    pf.hzb -=pf.speed;
+                }
+                else if (pf.hzb<441&&rightDown == true) {
+                    pf.hzb += pf.speed;
+                }
+                else if (pf.zzb>0&&upDown == true) {
+                    pf.zzb -= pf.speed;
+                }
+                else if (pf.zzb<605&&downDown == true) {
+                    pf.zzb += pf.speed;
+                }
+
+                //enemy
+
+                for(var k=0;k<enemy_number;k++)
+                {
+                    /*if((enemy[k].zzb+45>pf.zzb&&enemy[k].zzb<pf.zzb)&&((enemy[k].hzb<pf.hzb+59&&enemy[k].hzb>pf.hzb)||(enemy[k].hzb+33>pf.hzb&&enemy[k].hzb<pf.hzb)))
+                     {
+                     enemy[k].alive = false;
+                     }*/
+                    //collide(bullet[k],enemy[k],3,33,9,45)
+                    if(enemy[k].alive)
+                    {
+                        context.drawImage(enemy[k], enemy[k].hzb, enemy[k].zzb);
+                        enemy[k].zzb+= enemy[k].speed;
+                    }
+                    if(enemy[k].zzb>650)
+                    {
+                        for(var k=0;k<enemy_number;k++)
+                        {
+                            enemy[k].alive=true;
+                            enemy[k].zzb=0;
+                        }
+                    }
+                }
+
+                //bullet
+                //这一部分关于子弹移动的逻辑就是：①每一次定时器刷新时在机头位置创造新的子弹②所有子弹纵坐标向上前移③绘制所有子弹
+
+                bullet[bullet_number]=new bullets(bullet_number);
+                bullet[bullet_number].hzb=pf.hzb+28;
+                bullet[bullet_number].zzb=pf.zzb-9;//bullet_move
+                bullet_number++;
+                context.drawImage(pf,pf.hzb,pf.zzb);
+                for(var k=0;k<=bullet_number;k++)
+                {
+                    bullet[k].zzb=bullet[k].zzb-bullet[k].speed;//bullet_move
+                    context.drawImage(bullet[k],bullet[k].hzb,bullet[k].zzb);
+                }
+
+            },1000/fps);
+        }
+        animation_control();
+    }
+
+    function bullets(order){
+        var o =new Image();
+        var o
+        {
+            o.src='bullet.png';
+            o.order=order;
+            o.hzb;
+            o.zzb;
+            o.speed=10;
+        }
+        return o;
+    }
+
+    function enemy_flights(order) {
+        var o=new Image();
+        var o
+        {
+            o.src='enemy_flights.png';
+            o.order=order;
+            o.hzb=order*100+37;
+            o.zzb=0;
+            o.speed=5;
+            o.alive=true;
+        }
+        return o;
+    }
+
+    function collide(a,b,ak,bk,ag,bg) {
+        if(((a.hzb<b.hzb&&a.hzb+ak>b.hzb)||(a.hzb>b.hzb&&b.hzb+bk>a.hzb))&&((a.zzb<b.zzb&&a.zzb+ag>b.zzb)||(a.zzb>b.zzb&&b.zzb+bg>a.zzb)))
+        {
+            b.alive=false;
+        }
+        return b;
+    }
+
+    function  init ()
+    {
+        play();
+    }
+
+
+
+    init();
+
+</script>
+</body>
+</html>

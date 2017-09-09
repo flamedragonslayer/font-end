@@ -6,83 +6,145 @@
     <link rel="stylesheet" href="break bricks.css">
 </head>
 <body>
-<canvas id="panel" width="600" height="800"></canvas>
+<canvas id="panel" width="710" height="800"></canvas>
 
 <script>
     var log=console.log.bind(console)
 
-    function ball_draw() {
-
-
-        function ball_move() {
-            b_hzb+=b_speed;
-            b_zzb+=b_speed;
-            context.drawImage(ball,b_hzb,b_zzb)
+    function subject(order)
+    {
+        var o=new Image();
+        var o
+        {
+            o.src='brick.png'
+            o.order=order
+            o.hzb=order%10*71
+            o.zzb=parseInt(order/10)*18
+            o.alive=true
         }
+        return o;
     }
 
     function board_draw()
     {
-        var hzb=300
-        var zzb=750;
-        var b_hzb=230;
-        var b_zzb=500;
+        var hzb=303;
+        var zzb=760;
+        var b_hzb=303;
+        var b_zzb=300;
         var speed=10;
+        var x_speed=7;
+        var y_speed=7;
         var panel=document.getElementById('panel');
         var context=panel.getContext('2d');
+        var leftDown=false;
+        var rightDown=false;
+        var brick=new Array;
+        var brick_num=70;
+
         var board=new Image();
         board.src='board.png';
-        board.onload=function ()
-        {
-            context.drawImage(board,hzb, zzb)
-        }
         var ball=new Image();
         ball.src='ball.png'
-        ball.onload=function () {
-            context.drawImage(ball,b_hzb,b_zzb)
+        for(var k=0;k<brick_num;k++)//把brick数组的声明提到外面去所有问题就解决了，不然它只能是for循环里的一个局部变量
+        {
+            brick[k]=new subject(k);
         }
-        window.addEventListener('keydown',function (event){
-            var k=event.key
-            if(k=='a')
-            {
-                b_hzb+=speed;
-                b_zzb+=speed;
-                hzb-=speed;
-                context.clearRect(0,0,panel.width,panel.height);
-                context.drawImage(board, hzb, zzb);
-                context.drawImage(ball,b_hzb,b_zzb)
-
+        window.addEventListener('keydown',function (event) {
+            var k = event.key
+            if (k == 'a') {
+                leftDown=true
             }
-            else if(k=='d')
-            {
-                b_hzb+=speed;
-                b_zzb+=speed;
-                hzb+=speed;
-                context.clearRect(0,0,panel.width,panel.height);
-                context.drawImage(board, hzb, zzb);
-                context.drawImage(ball,b_hzb,b_zzb)
-
+            else if (k == 'd') {
+                rightDown=true
             }
-
         })
-       /* setInterval(function () {
-            b_hzb+=speed;
-            b_zzb+=speed;
-            context.clearRect(0,0,panel.width,panel.height);
+        window.addEventListener('keyup',function () {
+            leftDown=false
+            rightDown=false
+        })
+        setInterval(function ()
+        {
+            context.clearRect(0, 0, panel.width, panel.height);
+            context.drawImage(board, hzb, zzb);
+            if(leftDown&&hzb>0)
+            {
+                hzb -= speed;
+            }
+            else if(rightDown&&hzb<606)
+            {
+                hzb += speed;
+            }
+            context.clearRect(0, 0, panel.width, panel.height);
+            context.drawImage(board, hzb, zzb);
+            b_hzb+=x_speed;
+            b_zzb+=y_speed;
             context.drawImage(ball,b_hzb,b_zzb)
-        },1000/30)*/
-
+            for(var k=0;k<brick_num;k++)
+            {
+                if(brick[k].alive==true)//只绘制出存活的bricks
+                {
+                    context.drawImage(brick[k], brick[k].hzb, brick[k].zzb);
+                }
+            }
+            if(b_hzb<=0||b_hzb>=695)//
+            {//球接触画布左右两面
+                x_speed=-x_speed;
+            }
+            if(b_zzb<=0||b_zzb>=786)//772 height==18?
+            {//球接触画布上下顶面
+                y_speed=-y_speed;
+            }
+            if((b_hzb<hzb+104&&b_hzb+29>hzb)&&b_zzb+14>zzb)
+            {//球接触平板上侧
+                x_speed=-x_speed;
+                y_speed=-y_speed;
+            }
+            if(((b_hzb>hzb&&b_hzb<hzb+104)||(b_hzb+29>hzb&&b_hzb<hzb))&&(b_zzb>zzb&&b_zzb<772))
+            {//球接触平板左右两侧
+                x_speed=-x_speed;
+                y_speed=-y_speed;
+            }
+            for(var k=0;k<brick.length;k++)//球与砖块的碰撞鉴定，完美解决，破费
+            {
+               if((b_zzb>brick[k].zzb&&b_zzb<brick[k].zzb+18)&&(b_hzb>brick[k].hzb&&b_hzb<brick[k].hzb+71))
+                {
+                    if(b_hzb>brick[k].hzb+35.5)
+                    {
+                        y_speed=-y_speed;
+                    }
+                    if(b_hzb<brick[k].hzb+35.5)
+                    {
+                        x_speed=-x_speed;
+                        y_speed=-y_speed;
+                    }
+                    if(b_zzb>brick[k].zzb+9)
+                    {
+                        x_speed=-x_speed;
+                        y_speed=-y_speed;
+                    }
+                    if(b_hzb<brick[k].hzb+9)
+                    {
+                        x_speed=-x_speed;
+                    }
+                    brick[k].alive=false
+                    brick[k].src='';
+                    brick[k].hzb=-100;
+                    brick[k].zzb=-100;
+                }
+            }
+        },1000/70)
     }
 
     function init() {
         board_draw();
     }
 
+    //bricks'true and false attributes
+    //clean the collide judgements
+
+
     init();
 
 </script>
-</body>
-</html>
-
 </body>
 </html>
