@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello world</title>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser-min.js"></script>
+
+</head>
+<body>
+<div id="gg"></div>
+<script type="text/babel">
+
+    var ElloMessage=React.createClass({           //组件化的标签名字的第一个字母一定要是大写，不然就不会显示出来了。
+        render:function () {
+            return <p>hhh {this.props.name}</p>;
+        }
+    });
+    ReactDOM.render(
+        <ElloMessage name="aaaaa"/>,
+        document.getElementById("gg")             //这里的第二个参数不能使用JQ去提取。
+    );
+
+
+
+    //JSX 的基本语法规则：遇到 HTML 标签（以 < 开头），就用 HTML 规则解析；遇到代码块（以 { 开头），就用 JavaScript 规则解析。
+
+</script>
+</body>
+</html>

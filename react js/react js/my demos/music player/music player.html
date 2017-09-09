@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script  src="../../build/react.js"></script>
+    <script  src="../../build/react-dom.js"></script>
+    <script  src="../../build/browser-min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.min.js"></script>
+    <title>Title</title>
+    <style type="text/css">
+        #Pg-1{
+            width: 800px;
+            height: 5px;
+            background:gray;
+            cursor: pointer;
+        }
+        #Pg-2{
+             width: 20%;
+             height: 5px;
+             background: greenyellow;
+         }
+        #Vc-1{
+            width:3px;height:100px;background:gray;cursor: pointer;
+        }
+        #Vc-2{
+            width:3px;height:80%;backGround:yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="example"></div><div id="voice"></div><div id="time"></div>
+<div id="PG"></div>
+<script type="text/babel">
+
+    //LOGO
+    var Header=React.createClass({
+        render:function () {
+            return (
+                    <div id="head"><h1>Music Player</h1><img src='src/player.png'></img></div>
+            );
+        }
+    });
+
+    //计时器
+
+    var Timer=React.createClass({
+        getInitialState:function () {
+          return{
+              time:1
+          };
+        },
+        componentDidMount:function () {
+
+            //这有问题，还未解决
+
+            window.setInterval(function () {
+                this.setState(
+                    time=time++
+                )
+            },1000)
+
+        },
+        render:function () {
+            return(
+            <div>{this.state.time}</div>)
+        }
+    });
+
+    //音量
+
+    var Voice=React.createClass({
+        render:function () {
+            return(
+                    <div id="Vc-1">
+                        <div id="Vc-2"></div>
+                    </div>
+            )
+        }
+    })
+
+    //进度条
+
+    var Progress=React.createClass({
+        changeProgress:function(){
+
+        },
+        render:function () {
+            return (
+                    <div id="Pg-1">
+                        <div id="Pg-2"></div>
+                    </div>
+            );
+        }
+    });
+
+    ReactDOM.render(
+        <Header/>,
+        example);
+    ReactDOM.render(
+            <Progress/>,
+        PG)
+    ReactDOM.render(
+            <Timer/>,
+        time)
+    ReactDOM.render(
+        <Voice/>,
+        voice
+    );
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser-min.js"></script>
+</head>
+<body>
+<div id="gg"></div>
+<script type="text/babel">
+    var Aa=React.createClass({
+        getInitialState:function () {
+            return({
+                it:'',
+                yz:'',
+                style:{}
+            })
+        },
+        handleChange:function(event){
+            this.setState({
+                it:event.target.value
+            })
+            event.preventDefault();
+            event.stopPropagation();
+        },
+        handleYz:function (event) {
+            if(event.target.value!=123456) {
+                this.setState({
+                    yz: "密码错误"
+                })
+            }
+            else if(event.target.value==123456)
+            {
+                this.setState({
+                    yz:"密码正确"
+                })
+            }
+            event.preventDefault();
+            event.stopPropagation();
+        },
+        styleChange:function () {
+            if(this.state.yz== "密码错误")
+            {
+                this.setState({
+                    style:{
+                        color:'red',
+                        fontSize:'10px'
+                    }
+                })
+            }
+            else if( this.state.yz=="密码正确")
+            {
+                this.setState({
+                    style:{
+                        color:'green',
+                        fontSize:'10px'
+                    }
+                })
+            }
+        },
+        render:function () {
+
+            return(
+                <div>
+                    <input type="text" onChange={this.handleYz}/><span>{this.state.it}</span><br/>
+                    <span style={this.state.style} onClick={this.styleChange} >{this.state.yz}</span>
+                </div>
+            )
+        }
+    })
+    ReactDOM.render(
+        <div>
+            <Aa/><br/>
+            因为找不到特别合适的动态改变span的style的属性，所有选择的onClick
+        </div>,
+        gg
+    )
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser-min.js"></script>
+    <title>demo 5</title>
+</head>
+<body>
+<div id="gg"></div>
+<div id="aa"></div>
+<script type="text/babel">
+
+    var Example=React.createClass({
+        getDefaultProps:function(){
+            return{
+                laxq:2
+            };
+        },
+        render:function () {
+            return(
+                <div>
+                    一个容量大小为的{this.props.laxq}input输入栏<input type="text" size={this.props.laxq}/>
+                </div>
+            );
+        }
+    });
+
+    var E1=React.createClass({
+        render:function () {
+            return(
+                    <p>taaaaaaaaaaaaa</p>
+            )
+        }
+    })
+
+    ReactDOM.render(
+        <Example/>,
+        document.getElementById('aa')
+    )
+    ReactDOM.render(
+        <E1/>,
+        document.getElementById('gg')
+    )
+
+
+</script>
+</body>
+</html>
+<!--/*getInitialState:function () {
+return
+{
+opacity:'1'
+backgroundColor:'lightblue'
+}
+;
+},
+componentDidMount:function () {
+return
+{
+opacity:'1'
+background:'yellow'
+}
+},
+writeLength:function () {
+return
+{
+Math.random()*10;
+}
+},*/-->

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello world</title>
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser-min.js"></script>
+
+</head>
+<body>
+<div id="gg"></div>
+<script type="text/babel">
+
+   var Example=React.createClass({
+       getInitialState:function () {
+           return({
+               it:""
+           })
+       },
+       hd:function (event) {
+           this.setState({it:event.target.value});
+           event.preventDefault();
+           event.stopPropagation();
+       },
+       render:function () {
+         return(
+             <div>
+                 <input type="text" onChange={this.hd}/><span>{this.state.it}</span>
+             </div>
+         )
+       }
+   })
+
+   var Clickhandle=React.createClass({
+       hd:function (evnet) {
+           var aa=React.findDOMNode(this.refs.tip);
+           if(aa.style.display=='none')
+           {
+               aa.style.display='inline'
+           }
+           else{
+               aa.style.display='none'
+           }
+           event.preventDefault();
+           event.stopPropagation();
+       },
+       render:function () {
+         return(
+             <div>
+                 <button onClick={this.hd}>xs|yc</button><span ref="tip" >asdadad</span>
+             </div>
+         )
+       }
+   })
+
+   ReactDOM.render(
+       <div>
+           <Clickhandle/>
+           <Example/>
+       </div>
+           ,
+       document.getElementById("gg")
+   );
+    //JSX 的基本语法规则：遇到 HTML 标签（以 < 开头），就用 HTML 规则解析；遇到代码块（以 { 开头），就用 JavaScript 规则解析。
+
+</script>
+</body>
+</html>

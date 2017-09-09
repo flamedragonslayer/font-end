@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../build/react.js"></script>
+    <script src="../../build/react-dom.js"></script>
+    <script src="../../build/browser-min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<div id="gg"></div>
+<script type="text/babel">
+    var Header=React.createClass({
+        getInitialState:function () {
+            return({
+                style:{
+                    display:'inline'
+                }
+            })
+        },
+        handleClick:function (event){
+            var xx=this.refs.nn;
+            if(xx.style.display=='inline')
+            {
+                this.setState({
+                    style:{
+                        display:'none'
+                    }
+                })
+            }else if(xx.style.display=='none'){
+                this.setState({
+                    style:{
+                        display:'inline'
+                    }
+                })
+            }
+            event.preventDefault();
+            event.stopPropagation();
+        },
+        render:function () {
+            return(<div>
+                <button onClick={this.handleClick}>Y|N</button><span style={this.state.style} ref="nn">ddddddd</span>
+            </div>)
+        }
+    })
+    ReactDOM.render(
+        <Header/>,
+        gg
+    )
+</script>
+</body>
+</html>
