@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    .stage{
+        top:200px;
+        left:450px;
+        width:1200px;
+        height:400px;
+        position:relative;
+        perspective: 2000px;//景深越大，图片倾斜程度越小
+        //stage这个类这里不知道为什么不能设置transform-style,它的字体颜色会变
+    }
+    .r-3d{
+        transform-style: preserve-3d;   //这个属性需要设置在父元素中，并且高于任何嵌套的变形元素
+    }
+    img{
+        position: relative;
+        height: 180px;
+        width:320px;
+        background-color: floralwhite;
+        backface-visibility: visible;
+        box-shadow: 0 4px 10px 5px rgba(0, 0, 0, .2);//box-shadow: h-shadow v-shadow blur spread color inset;
+        animation: rotates 10s ease-in-out infinite;//之所以写了这么多行代码还没动，主要就是因为这里没写全，没有设定时间，方式，状态。
+    }
+    img:hover{
+        animation-play-state: paused;
+    }
+    img:nth-child(1){
+        transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg)
+    }
+    img:nth-child(2){
+        transform: rotateY(60deg) rotateX(60deg)  rotateZ(60deg)
+    }
+    img:nth-child(3){
+        transform: rotateY(120deg) rotateX(120deg)  rotateZ(120deg)
+    }
+    img:nth-child(4){
+        transform: rotateY(180deg) rotateX(180deg)  rotateZ(180deg)
+    }
+    img:nth-child(5) {
+        transform: rotateY(240deg) rotateX(240deg)  rotateZ(240deg)
+    }
+    img:nth-child(6){
+        transform: rotateY(300deg) rotateX(300deg)  rotateZ(300deg)
+    }
+    @keyframes rotates  /*设置动画关键帧*/
+    {
+        0%{
+            transform: rotateY(0deg) rotateX(0deg)  rotateZ(0deg)
+        }
+        16.7%{
+            transform:rotateY(60deg) rotateX(60deg)  rotateZ(60deg)
+        }
+        33.3%{
+            transform:rotateY(120deg) rotateX(120deg)  rotateZ(120deg)
+        }
+        50%{
+            transform:rotateY(180deg) rotateX(180deg) rotateZ(180deg)
+        }
+        66.7%{
+            transform:rotateY(240deg) rotateX(240deg) rotateZ(240deg)
+        }
+        83.3%{
+            transform: rotateY(300deg) rotateX(300deg) rotateZ(300deg)
+        }
+        100%{
+            transform: rotateY(360deg) rotateX(360deg) rotateZ(360deg)
+        }
+    }
+
+</style>
+<body>
+<div class="stage">
+    <div class="r-3d">
+        <img src="src/1.png">
+        <img src="src/2.png">
+        <img src="src/3.png">
+        <img src="src/4.png">
+        <img src="src/5.png">
+        <img src="src/6.png">
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
