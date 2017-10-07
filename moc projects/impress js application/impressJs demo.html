@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        body{
+            background-color: lightgray;
+        }
+        .step{
+            background-color: aquamarine;
+            border-radius: 20px;
+            border:1px black solid;
+            width: 500px;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+<div class="impress-not-supported"></div>
+<script src="src/impress.js"></script>
+<!--这个js不能放到head里，需要放在impress的上方，不然就不会起作用-->
+<div id="impress">
+    <div class="step" data-x="0" data-y="0" >This is page1</div>
+    <div class="step" data-x="600" data-y="0" >This is page2</div>
+    <div class="step" data-x="1200" data-y="0" >This is page3</div>
+    <div class="step" data-x="1200" data-y="600" >This is page4</div>
+    <div class="step" data-x="600" data-y="600" data-rotate="90">This is page5</div>
+    <div class="step" data-x="0" data-y="2000" data-rotate="150" data-scale="2">This is page6</div>
+    <div class="step" data-x="1200" data-y="1200" data-rotate-x="60" data-rotate-y="60">This is page7</div>
+    <div class="step" data-x="0" data-y="-600" data-rotate-x="135" data-rotate-z="45">This is page8</div>
+
+</div>
+<script>
+    impress().init()//没有这一行也无法使用impressJs
+
+</script>
+</body>
+</html>
