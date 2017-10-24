@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+<header>
+    <div id="head-left">
+        <div class="inline-left">flamedragonslayer</div>
+        <div class="inline-left">消息</div>
+        <div class="inline-left">手机逛淘宝</div>
+    </div>
+    <div id="head-right">
+        <div class="inline-right">淘宝网首页</div>
+        <div class="inline-right extension">我的淘宝
+            <!--<div class="inline-extension" >-->
+                <!--<div>已买到的宝贝</div>-->
+                <!--<div>我的足迹</div>-->
+                <!--<div>爱逛街</div>-->
+                <!--<div>淘宝达人</div>-->
+                <!--<div>新欢</div>-->
+            <!--</div>-->
+        </div>
+        <div class="inline-right extension">收藏夹
+            <!--<div class="inline-extension">-->
+                <!--<div>收藏的宝贝</div>-->
+                <!--<div>收藏的店铺</div>-->
+            <!--</div>-->
+        </div>
+        <div class="inline-right extension">卖家中心
+        <!--<div class="inline-extension">-->
+                <!--<div>免费开店</div>-->
+                <!--<div>已卖出的宝贝</div>-->
+                <!--<div>出售中的宝贝</div>-->
+                <!--<div>卖家服务市场</div>-->
+                <!--<div>卖家培训中心</div>-->
+            <!--</div>-->
+        </div>
+        <div class="inline-right extension">联系客服
+        <!--<div class="inline-extension">-->
+                <!--<div>消费者客服</div>-->
+                <!--<div>卖家客服</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+</header>
+
+
+
+<div id="all">
+    <img src="img/taobao-icon.png" alt="淘宝购物车" style="position: absolute;top:50px;left:200px">
+    <div style="position: absolute;top:50px;right:300px;background:#ff6b2d;width:500px;height: 34px">
+        <input type="text" maxlength="50" id="inputbox" placeholder="请输入内容"> <div id="search">搜索</div>
+    </div>
+    <div  id="classification">
+        <div class="classifications" style="border-right: 1px solid lightgrey;">全部商品<span class="inline-number">7</span></div>
+        <div class="classifications" style="border-right: 1px solid lightgrey;">降价商品<span class="inline-number">0</span></div>
+        <div class="classifications">库存紧张<span class="inline-number">0</span></div>
+    </div>
+</div>
+
+
+
+<div id="index">
+    <div id="index-left">
+        <input type="radio"  class="inline-left">全选
+        <div class="inline-left">&nbsp&nbsp&nbsp&nbsp商品信息</div>
+    </div>
+    <div id="index-right">
+        <div class="inline-right">单价</div>
+        <div class="inline-right">数量</div>
+        <div class="inline-right">金额</div>
+        <div class="inline-right">操作</div>
+    </div>
+</div>
+
+
+
+<div class="commodity">
+    <div class="mall"><input type="radio" class="mall-choose">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp店铺:<span class="mall-names">mall-name</span></div>
+    <div class="commodity-informations">
+        <input type="radio" class="commodity-choose"><img src="" alt="" class="commodity-imgs">
+        <div class="commodity-names">commodity-name
+            <div><img src="" alt="" class="three-logos">
+                 <img src="" alt="" class="three-logos">
+                 <img src="" alt="" class="three-logos">
+            </div>
+        </div>
+        <div class="commodity-types">type<br>size</div>
+        <div class="commodity-prices">
+            <div class="ori-price">￥0.00</div>
+            <div class="now-price">￥0.00</div>
+            <div class="discount">&nbsp&nbsp卖家促销<img src="" alt="" class="arrow"></div>
+            <div class="discount-hide">&nbsp&nbsp&nbsp&nbspblablabla<br>&nbsp&nbsp&nbsp&nbspruaruarua</div>
+        </div>
+        <div class="commodity-number">
+            <div class="minus">-</div>
+            <input type="text" value="1"class="number">
+            <div class="plus">+</div>
+            <div class="warn">最多只能购买<div class="biggest-number" style="display: inline-block"></div>件</div>
+        </div>
+        <div class="total-price">￥0.00</div>
+        <div class="commodity-delete">删除</div>
+    </div>
+</div>
+
+
+
+<footer>
+    <div id="foot-left" style="display: inline-block">
+        <input type="radio" id="choose-all" class="inline-left" >全选</input>
+        <div class="inline-left">删除</div>
+        <div class="inline-left">移入收藏夹</div>
+        <div class="inline-left">分享</div>
+    </div>
+    <div id="foot-right" style="display: inline-block;float: right">
+        <div class="inline-right">已选商品<div id="item-number" style="display:inline-block;color: #ff6b2d;">0</div>件</div>
+        <div class="inline-right">合计（不含运费）: <div id="item-value" style="display: inline-block;color: #ff6b2d">￥0.00</div></div>
+        <div  id="pay">结算</div>
+    </div>
+</footer>
+<script>
+
+</script>
+</body>
+</html>
