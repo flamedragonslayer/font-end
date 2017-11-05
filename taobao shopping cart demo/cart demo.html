@@ -67,7 +67,7 @@
 
 <div id="index">
     <div id="index-left">
-        <input type="radio"  class="inline-left choose-all">全选
+        <input type="radio"  class="inline-left choose-all" name="choose-all">全选
         <div class="inline-left">&nbsp&nbsp&nbsp&nbsp商品信息</div>
     </div>
     <div id="index-right">
@@ -81,9 +81,9 @@
 
 
 <div class="commodity">
-    <div class="mall"><input type="radio" class="mall-choose">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp店铺:<span class="mall-names">mall-name</span></div>
+    <div class="mall"><input type="radio" class="mall-choose" name="mall-choose">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp店铺:<span class="mall-names">mall-name</span></div>
     <div class="commodity-informations">
-        <input type="radio" class="commodity-choose"><img src="" alt="" class="commodity-imgs">
+        <input type="radio" class="commodity-choose" name="commodity-choose"><img src="" alt="" class="commodity-imgs">
         <div class="commodity-names">commodity-name
             <div><img src="" alt="" class="three-logos">
                  <img src="" alt="" class="three-logos">
@@ -92,19 +92,19 @@
         </div>
         <div class="commodity-types">type<br>size</div>
         <div class="commodity-prices">
-            <div class="ori-price">0.00</div>
-            <div class="now-price">0.00</div>
-            <div class="discount">&nbsp&nbsp卖家促销<img src="" alt="" class="arrow"></div>
-            <div class="discount-hide">&nbsp&nbsp&nbsp&nbspblablabla<br>&nbsp&nbsp&nbsp&nbspruaruarua</div>
+            <div class="ori-price" name="ori-price">0.00</div>
+            <div class="now-price" name="now-price">10.00</div>
+            <div class="discount" name="discount">&nbsp&nbsp卖家促销<img src="" alt="" class="arrow" name="arrow"></div>
+            <div class="discount-hide" name="discount-hide">&nbsp&nbsp&nbsp&nbspblablabla<br>&nbsp&nbsp&nbsp&nbspruaruarua</div>
         </div>
         <div class="commodity-number">
-            <div class="minus">-</div>
-            <input type="text" value="1" class="number">
-            <div class="plus">+</div>
-            <div class="warn">最多只能购买<div class="biggest-number" style="display: inline-block"></div>件</div>
+            <div class="minus" name="minus">-</div>
+            <input type="text" value="1" class="number" name="number">
+            <div class="plus" name="plus">+</div>
+            <div class="warn" name="warn">最多只能购买<div class="biggest-number" name="biggest-number" style="display: inline-block"></div>件</div>
         </div>
-        <div class="total-price">0.00</div>
-        <div class="commodity-delete">删除</div>
+        <div class="total-price" name="total-price">0.00</div>
+        <div class="commodity-delete" name="commodity-delete">删除</div>
     </div>
 </div>
 
@@ -112,14 +112,14 @@
 
 <footer>
     <div id="foot-left" style="display: inline-block">
-        <input type="radio" class="inline-left choose-all">全选
+        <input type="radio" class="inline-left choose-all" name="choose-all">全选
         <div class="inline-left">删除</div>
         <div class="inline-left">移入收藏夹</div>
         <div class="inline-left">分享</div>
     </div>
     <div id="foot-right" style="display: inline-block;float: right">
         <div class="inline-right">已选商品<div id="item-number" style="display:inline-block;color: #ff6b2d;">0</div>件</div>
-        <div class="inline-right">合计（不含运费）: <div id="item-value" style="display: inline-block;color: #ff6b2d">￥0.00</div></div>
+        <div class="inline-right">合计（不含运费）: <div id="all-item-value" style="display: inline-block;color: #ff6b2d">￥0.00</div></div>
         <div  id="pay">结算</div>
     </div>
 </footer>
@@ -127,27 +127,70 @@
 
 
     $(document).ready(function () {
+
+        //所有要用到的name数组，按平面从上到下顺序排列
+
+        var ca=document.getElementsByName("choose-all")
+        var mc=document.getElementsByName("mall-choose")
+        var cc=document.getElementsByName("commodity-choose")
+
+
+        var tp=document.getElementsByName("total-price")
+        var np=document.getElementsByName("now-price")
+        var nu=document.getElementsByName("number")
+
+        var aiv=document.getElementById("all-item-value")
+
         //全选
+
         var if_choose=false;
-        $(".choose-all").click(function () {
+        var all_items_price=0;
+        $(".choose-all").click(function (){
             if_choose=!if_choose;
             if(if_choose){
-                $(".commodity-informations").css("background-color","rgba(254,118,75,0.25)")
+                $(".commodity-informations").css("background-color","rgba(254,118,75,0.25)");
+                for( i in ca){
+                    ca[i].checked=true  //这里ca的第一个数组没有反应，不会变化
+                }
+                for( i in mc){          //这里in后面的要是个对象，比如数组对象，不能是mc.length
+                    mc[i].checked=true
+                }
+                for( i in cc){
+                    cc[i].checked=true
+                }
+                for ( i in tp)
+                {
+                    all_items_price=all_items_price+parseInt(tp[i].innerHTML)
+                }
+                aiv.innerText=all_items_price;
+                //这里统计总价没做完
             }
-            else{
-                $(".commodity-informations").css("background-color","rgba(243,248,245,0.26)")
+            else if(!if_choose){
+                $(".commodity-informations").css("background-color","rgba(243,248,245,0.26)");
+                for( i in ca){
+                    ca[i].checked=false
+                }
+                for( i in mc){
+                    mc[i].checked=false
+                }
+                for( i in cc){
+                    cc[i].checked=false
+                }
+                aiv.innerText=0;
             }
+
         })
 
 
         //加减 没做完
+
         $(".plus").click(function () {
             if($(".number").val()>=0)
             {
                 $(".number").val(function () {
                     return (parseInt($(".number").val())+1);
                 });
-//                $(".total-price").innerHTML="￥"+parseFloat($(".now-price").innerHTML)*parseInt($(".number").val());
+                tp[0].innerText=parseFloat(np[0].innerHTML)*parseFloat(nu[0].value)//这里不管怎么弄出来的都是整数形式
             }
         })
         $(".minus").click(function () {
@@ -156,9 +199,10 @@
                 $(".number").val(function () {
                     return (parseInt($(".number").val())-1);
                 });
-//            $(".total-price").innerHTML="￥"+parseFloat($(".now-price").innerHTML)*parseInt($(".number").val());
+                tp[0].innerText=parseFloat(np[0].innerHTML)*parseFloat(nu[0].value)
             }
         })
+
 
         //鼠标移动触发折扣
         $(".discount").mouseenter(function () {
