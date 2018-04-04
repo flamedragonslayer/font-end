@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标悬浮模糊</title>
+</head>
+<body>
+<style>
+    #stage{
+        width:422px;
+        height:269px;
+        position:relative;
+        left:550px;
+        top:200px;
+    }
+    #stage:hover #bk-img{
+        transition: opacity 2s ease-in-out;
+        opacity: 0.05;
+    }
+    #stage:hover #text{
+        transition: opacity 2s ease-in-out;
+        opacity: 1;
+    }
+    #text{
+        position:absolute;
+        left:135px;
+        top:120px;
+        font-family: Aharoni;
+        font-size:50px;
+        font-weight: bolder;
+        color: yellow;
+        opacity: 0;
+    }
+
+</style>
+<div id ='stage'>
+    <img src="img.jpg" alt="gakki" id="bk-img">    <div id="text">Gakki</div>
+</div>
+</body>
+</html>

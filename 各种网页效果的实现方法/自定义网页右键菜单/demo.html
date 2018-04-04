@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义网页右键菜单</title>
+</head>
+<body>
+<style>
+    #stage{
+        position:relative;
+        top:170px;
+        left:540px;
+        width:479px;
+        height:306px;
+    }
+</style>
+<div id="stage" oncontextmenu="menu">
+    <img src="img.jpg" alt="gakki" id="ig">
+</div>
+<div id="show"></div>
+<script type="text/javascript">
+
+    var log=console.log.bind(this)
+
+    function createCode(e){
+        var x=e.clientX;
+        var y=e.clientY;
+        var newcode=document.createElement("div");
+        newcode.innerHTML=x+'+'+y;
+        newcode.style.width='50px';
+        newcode.style.height='50px';
+        newcode.style.position='absolute'
+        newcode.style.left=x;
+        newcode.style.top=y;
+        newcode.style.backgroundColor='black'
+        newcode.style.display='display';
+        log(2)
+        
+        return newcode;
+    }
+
+    var stage=document.querySelector("#stage")
+    stage.oncontextmenu=function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var x=e.clientX;
+        var y=e.clientY;
+        show.innerHTML=x+'+'+y;
+        var newcode=createCode(e);
+        log(newcode)
+        log(1);
+    }
+</script>
+</body>
+</html>
