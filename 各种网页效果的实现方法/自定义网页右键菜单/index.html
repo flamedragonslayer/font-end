@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义网页右键菜单</title>
+</head>
+<style>
+    #stage{
+        position:relative;
+        top:170px;
+        left:540px;
+        width:479px;
+        height:306px;
+    }
+    #rclick{
+        width:50px;
+        height:50px;
+        background-color: lightgray;
+        position:absolute;
+        top:0;
+        left:0;
+        visibility: hidden;
+        z-index: 11;
+    }
+    .inline-text{
+        text-align: center;
+        font-size: medium;
+        width:50px;
+        height: 25px;
+    }
+</style>
+<body>
+<div id="stage" oncontextmenu="menu">
+    <img src="img.jpg" alt="gakki" id="ig">
+</div>
+<div id="rclick">
+    <div class="inline-text">1</div>
+    <div class="inline-text">2</div>
+</div>
+<script type="text/javascript">
+
+    var log=console.log.bind(this)
+    var clickTime=0;
+    var rclick=document.querySelector('#rclick')
+    var stage=document.querySelector("#stage")
+
+    function getLocation(e){
+        var x=e.pageX
+        var y=e.pageY
+        var c=[]
+        c=judgeMenuLocation(x,y)
+        x=c[0]
+        y=c[1]
+        rclick.style.left=x+'px';
+        rclick.style.top=y+'px';
+        rclick.style.visibility='visible'
+        log(rclick)
+    }
+
+    function hiddenMenu(){
+        rclick.style.visibility='hidden'
+    }
+
+    function clickJudge(e){
+        if(clickTime==0){
+            getLocation(e);
+        }else if(clickTime>0){
+            hiddenMenu();
+            setTimeout(function(){getLocation(e)},100);
+        }
+        clickTime++;
+    }
+
+    function judgeMenuLocation(a,b) {
+        var c=[]
+        if(b>440){
+            b=b-50;
+        }
+        if(a>976){
+            a=a-50;
+        }
+        c[0]=a;
+        c[1]=b;
+        return c;
+    }
+
+    stage.oncontextmenu=function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        clickJudge(e);
+    }
+    rclick.oncontextmenu=function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        clickJudge(e);
+    }
+    stage.addEventListener('click',function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        hiddenMenu()
+    })
+    window.addEventListener('click',function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        hiddenMenu()
+    })
+</script>
+</body>
+</html>
