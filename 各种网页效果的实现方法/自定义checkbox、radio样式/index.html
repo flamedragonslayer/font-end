@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义checkbox、radio样式</title>
+</head>
+
+<body>
+<style>
+    #stage{
+        width: 500px;
+        height: 500px;
+        top:125px;
+        left:500px;
+        position: absolute;
+    }
+    #fake-element input[type='checkbox']:checked{
+        width:50px;
+        height:50px;
+        box-shadow: 0 0 0 1px greenyellow;
+
+    }
+    #fake-element input[type='radio']:checked{
+        width:50px;
+        height:50px;
+        box-shadow: 0 0 0 1px orange;
+    }
+    #background input[type='checkbox']{
+        background-position: top;
+        width:50px;
+        height:50px;
+    }
+    #background input[type='radio']{
+        background-position: left;
+        width:50px;
+        height:50px;
+    }
+</style>
+<div id="stage">
+    <div id="fake-element">伪元素法
+        <div>checkbox<input  type="checkbox"/></div>
+        <div>radio
+            <input type="radio"/>
+            <input type="radio"/>
+        </div>
+    </div>
+    <div style="margin-top: 100px" id="background">雪碧图法
+        <div>checkbox<input  type="checkbox"/></div>
+        <div>radio
+            <input type="radio"/>
+            <input type="radio"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>
