@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>自定义checkbox、radio样式</title>
-</head>
-
-<body>
-<style>
+    <style>
     #stage{
         width: 500px;
         height: 500px;
@@ -14,41 +11,69 @@
         left:500px;
         position: absolute;
     }
+
+    /*伪元素法*/
     #fake-element input[type='checkbox']:checked{
-        width:50px;
-        height:50px;
         box-shadow: 0 0 0 1px greenyellow;
 
     }
-    #fake-element input[type='radio']:checked{
+    #fake-element input[type='checkbox']{
         width:50px;
         height:50px;
+    }
+    #fake-element input[type='radio']:checked{
         box-shadow: 0 0 0 1px orange;
     }
-    #background input[type='checkbox']{
-        background-position: top;
+    #fake-element input[type='radio']{
         width:50px;
         height:50px;
     }
-    #background input[type='radio']{
-        background-position: left;
-        width:50px;
-        height:50px;
+
+    /*雪碧图法*/
+    .c,.r{
+        visibility: hidden;
+    }
+    .c+label,.r+label{
+        margin-top: 10px;
+        width: 16px;
+        height:16px;
+        display: inline-block;
+        background:url('img.png') no-repeat;
+    }
+    .c+label{
+        background-position: 0px -22px;
+    }
+    .c:checked+label{
+        background-position: -35px -21px;
+    }
+    .r+label{
+        background-position: 0px 0px;
+    }
+    .r:checked+label{
+        background-position: -34.5px 0px;
     }
 </style>
+</head>
+
+<body>
 <div id="stage">
     <div id="fake-element">伪元素法
         <div>checkbox<input  type="checkbox"/></div>
         <div>radio
-            <input type="radio"/>
-            <input type="radio"/>
+            <input type="radio" name="fake"/>
+            <input type="radio" name="fake"/>
         </div>
     </div>
-    <div style="margin-top: 100px" id="background">雪碧图法
-        <div>checkbox<input  type="checkbox"/></div>
+    <div style="margin-top: 100px">雪碧图法
+        <div>checkbox
+		<input  type="checkbox" id="c1" class="c"/>
+        <label for="c1"></label>
+		</div>
         <div>radio
-            <input type="radio"/>
-            <input type="radio"/>
+            <input type="radio" name="spirit" id="r1" class="r"/>
+            <label for="r1"></label>
+            <input type="radio" name="spirit" id="r2" class="r"/>
+            <label for="r2"></label>
         </div>
     </div>
 </div>
