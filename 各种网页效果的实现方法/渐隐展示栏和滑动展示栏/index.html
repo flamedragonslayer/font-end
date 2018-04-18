@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>渐隐展示栏和滑动展示栏</title>
+    <style>
+        #fade{
+            position: relative;
+            width: 800px;
+            height: 200px;
+            display:flex;
+            margin:auto;
+            margin-top: 50px;
+            background-color: lightgrey;
+            background-image: url("img/1.png");
+        }
+        #flow{
+            position: relative;
+            width: 800px;
+            height: 200px;
+            display:flex;
+            margin:auto;
+            margin-top: 100px;
+            background-color: lightgrey;
+            background-image: url("img/3.png");
+            background-position:0px 0px;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+
+        #fade1 , #flow1{
+            top: 185px;
+            left:390px;
+        }
+        #fade2 , #flow2 {
+            top: 185px;
+            left: 410px;
+        }
+        .btn{
+            position:absolute;
+            background-color: white;
+            width:10px;
+            height: 10px;
+            border-radius: 5px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="fade">
+    <div id="fade1" class="btn" onclick=btn_click(judge_fade,refresh_fade,fade1,fade2,fade,1)></div>
+    <div id="fade2" class="btn" onclick=btn_click(judge_fade,refresh_fade,fade2,fade1,fade,2)></div>
+</div>
+<div id="flow">
+    <div id="flow1" class="btn" onclick=btn_click(judge_flow,refresh_flow,flow1,flow2,flow,1)></div>
+    <div id="flow2" class="btn" onclick=btn_click(judge_flow,refresh_flow,flow2,flow1,flow,2)></div>
+</div>
+<script>
+
+    log=console.log.bind(this)
+    var judge_fade=true
+    var judge_flow=true
+    var refresh_fade=0
+    var refresh_flow=0
+
+    //    点击事件处理
+    function btn_click(judge,refresh,btn,ano,type,imgNum) {
+        bg_change(type,imgNum)
+        btn_color(btn,ano)
+        judge=!judge
+        refresh=1
+        window.setTimeout(function () {
+            refresh=0
+        },2000)
+    }
+
+//    按钮颜色改变
+    function btn_color(btn,ano) {
+        ano.style.backgroundColor='white'
+        btn.style.transition='1s'
+        btn.style.backgroundColor='lightgray'
+    }
+
+//    背景变换
+    function bg_change(type,num) {
+        type.style.transition='1s'
+        if(type==fade){
+            type.style.backgroundImage="url('img/"+num+".png')"
+            judge_fade=!judge_fade
+        }else if(type==flow){
+            if(num==1){
+                type.style.backgroundPositionX='-800px'
+            }else if(num==2){
+                type.style.backgroundPositionX='0px'
+            }
+            judge_flow=!judge_flow
+        }
+    }
+
+//    计时
+    window.setInterval(function () {log(1)},1000)
+
+//    fade变换
+    window.setInterval(function () {
+        if(refresh_fade==0){
+            if(judge_fade==true){
+                bg_change(fade,2)
+                btn_color(fade2,fade1)
+            }else if(judge_fade==false){
+                bg_change(fade,1)
+                btn_color(fade1,fade2)
+            }
+        }
+    },5000)
+
+//    flow变化
+    window.setInterval(function () {
+        if(refresh_flow==0){
+            if(judge_flow==true){
+                bg_change(flow,2)
+                btn_color(flow2,flow1)
+            }else if(judge_flow==false){
+                bg_change(flow,1)
+                btn_color(flow1,flow2)
+            }
+        }
+    },5000)
+
+</script>
+</body>
+</html>
