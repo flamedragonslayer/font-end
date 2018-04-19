@@ -31,6 +31,7 @@
         #fade1 , #flow1{
             top: 185px;
             left:390px;
+            background-color: lightgray;
         }
         #fade2 , #flow2 {
             top: 185px;
@@ -49,30 +50,46 @@
 </head>
 <body>
 <div id="fade">
-    <div id="fade1" class="btn" onclick=btn_click(judge_fade,refresh_fade,fade1,fade2,fade,1)></div>
-    <div id="fade2" class="btn" onclick=btn_click(judge_fade,refresh_fade,fade2,fade1,fade,2)></div>
+    <div id="fade1" class="btn" onclick=btn_click(judge_fade,fade1,fade2,fade,1)></div>
+    <div id="fade2" class="btn" onclick=btn_click(judge_fade,fade2,fade1,fade,2)></div>
 </div>
 <div id="flow">
-    <div id="flow1" class="btn" onclick=btn_click(judge_flow,refresh_flow,flow1,flow2,flow,1)></div>
-    <div id="flow2" class="btn" onclick=btn_click(judge_flow,refresh_flow,flow2,flow1,flow,2)></div>
+    <div id="flow1" class="btn" onclick=btn_click(judge_flow,flow1,flow2,flow,1)></div>
+    <div id="flow2" class="btn" onclick=btn_click(judge_flow,flow2,flow1,flow,2)></div>
 </div>
 <script>
 
     log=console.log.bind(this)
     var judge_fade=true
     var judge_flow=true
-    var refresh_fade=0
-    var refresh_flow=0
+    refresh_fade=true
+    refresh_flow=true
 
     //    点击事件处理
-    function btn_click(judge,refresh,btn,ano,type,imgNum) {
+    function btn_click(judge,btn,ano,type,imgNum) {
         bg_change(type,imgNum)
         btn_color(btn,ano)
         judge=!judge
-        refresh=1
-        window.setTimeout(function () {
-            refresh=0
-        },2000)
+        if(judge==judge_fade){
+            refresh_fade=false
+            var i=setTimeout(function () {
+                refresh_fade=true
+            },3000)
+        }
+        if(judge==judge_flow){
+            refresh_flow=false
+            var j=setTimeout(function () {
+                refresh_flow=true
+            },3000)
+        }
+    }
+
+    function stopChange() {
+        if(refre==true){
+            return true
+        }else{
+            return false
+        }
     }
 
 //    按钮颜色改变
@@ -84,14 +101,14 @@
 
 //    背景变换
     function bg_change(type,num) {
-        type.style.transition='1s'
+        type.style.transition='0.5s'
         if(type==fade){
             type.style.backgroundImage="url('img/"+num+".png')"
             judge_fade=!judge_fade
         }else if(type==flow){
-            if(num==1){
+            if(num==2){
                 type.style.backgroundPositionX='-800px'
-            }else if(num==2){
+            }else if(num==1){
                 type.style.backgroundPositionX='0px'
             }
             judge_flow=!judge_flow
@@ -103,7 +120,7 @@
 
 //    fade变换
     window.setInterval(function () {
-        if(refresh_fade==0){
+        if(refresh_fade==true){
             if(judge_fade==true){
                 bg_change(fade,2)
                 btn_color(fade2,fade1)
@@ -114,9 +131,9 @@
         }
     },5000)
 
-//    flow变化
+//    flow变换
     window.setInterval(function () {
-        if(refresh_flow==0){
+        if(refresh_flow==true){
             if(judge_flow==true){
                 bg_change(flow,2)
                 btn_color(flow2,flow1)
