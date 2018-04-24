@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>redux</title>
+    <script src="src/react.js"></script>
+    <script src="src/browser-min.js"></script>
+    <script src="src/react-dom.js"></script>
+    <script src="src/redux.js"></script>
+    <script src="src/react-redux.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<script type="text/babel">
+    var store=Redux.createStore(reducer)
+    var defaultState={
+        num:0,
+        txt:'',
+    }
+    function reducer(state=defaultState,action){
+        switch(action.type){
+            case "ADD":
+                state.num=state.num+action.num
+                break
+            case "SUB":
+                state.num=state.num-action.num
+                break
+            case "TXT":
+                state.txt=state.txt+action.txt
+                break
+        }
+        return state
+    }
+    store.subscribe(()=>{
+        console.log("Update!",store.getState())
+    })
+    store.dispatch({
+        type:'ADD',
+        num:10,
+    })
+    store.dispatch({
+        type:'SUB',
+        num:5,
+    })
+    store.dispatch({
+        type:'TXT',
+        txt:'show me',
+    })
+
+
+</script>
+</body>
+</html>
