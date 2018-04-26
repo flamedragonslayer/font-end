@@ -1,0 +1,1 @@
+  这有一个小问题，就是图片的css里有opacity时，会使图片略微缩小一到两个像素。解决方法是给图片加一个backgroundColor。

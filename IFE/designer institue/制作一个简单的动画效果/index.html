@@ -7,8 +7,24 @@
 </head>
 <body>
 <div id="column">
+    <div id="button" >Click</div>
     <img src="1.jpg" id="photo"/>
-    <div id="button">click</div>
 </div>
+<script>
+    var button=document.querySelector("#button")
+    var photo=document.querySelector("#photo")
+    var time=0;
+
+    button.addEventListener('click',function () {
+        if(time%2==0){
+            photo.style.opacity=1
+            photo.style.width='422px'
+        }else if(time%2!=0){
+            photo.style.opacity=0
+            photo.style.width='0px'
+        }
+        time++
+    })
+</script>
 </body>
 </html>

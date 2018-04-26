@@ -1,7 +1,7 @@
 body{
     display: flex;
     background-color:#ffc0ab;
-    cursor: url('cursor1.png'),auto;
+    /*cursor: url('cursor1.png'),auto;*/
 }
 /*#ffc0ab*/
 /*#fed0a2*/
@@ -14,26 +14,24 @@ body{
     display: flex;
 }
 #photo{
-    width: 422px;
+    width: 0;
     height: 269px;
+    opacity: 0;
     margin: auto;
+    transition:opacity 2s,width 0.618s;
+    background-color: white;
 }
 #button{
     position: absolute;
     width:60px;
     height:25px;
     top:400px;
-    left:225px;
+    left:220px;
     text-align: center;
     color:aqua;
     font-size: 20px;
     border:2px solid aqua;
     border-radius: 20px;
     line-height: 25px;
-}
-#button:hover{
-    /*cursor: url('cursor2.png'),auto;*/
-}
-#button:active {
-
+    cursor: default;
 }
