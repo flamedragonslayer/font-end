@@ -1,0 +1,29 @@
+body{
+    background-color: #eaffd8;
+    display: flex;
+}
+.photo{
+    display: block;
+    width: 345px;
+    height: 125px;
+    transition: 1s;
+}
+.photo:nth-child(1):hover{
+    transform: skew(30deg);
+}
+.photo:nth-child(2):hover{
+    transform: scaleX(0.5);
+}
+.photo:nth-child(3):hover{
+    transform: rotateZ(45deg);
+}
+.photo:nth-child(4):hover{
+    transform: translate(10px,20px);
+}
+.photo:nth-child(5):hover{
+    transform: skew(30deg) scaleX(0.5) rotateZ(45deg) translate(10px,20px) ;
+}
+#stage{
+    margin:auto;
+    margin-top:50px ;
+}
