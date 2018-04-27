@@ -1,0 +1,1 @@
+如果要把属性全设置在一个transition中，需要弄清楚设置顺序，transition: property duration timing-function delay；不然就会失效。
