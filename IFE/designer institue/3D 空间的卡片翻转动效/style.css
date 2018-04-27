@@ -1,0 +1,28 @@
+body{
+    display: flex;
+    background-color: #ffdde2;
+}
+#photo{
+    margin:auto;
+    width: 512px;
+    height: 606px;
+    position:relative;
+    perspective:1000px;
+    transform-style:preserve-3d;
+    margin-top:50px;
+}
+#photo:hover #front{
+    transform:rotateY(180deg);
+}
+#photo:hover #back{
+    transform:rotateY(180deg);
+}
+#front,#back{
+    width: 512px;
+    height: 606px;
+    position: absolute;
+    transition:1s;
+}
+#front{
+    z-index: 2;
+}
