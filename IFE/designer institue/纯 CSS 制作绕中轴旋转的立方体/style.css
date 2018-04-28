@@ -1,0 +1,51 @@
+body{
+    display: flex;
+    background-color: black;
+}
+.cube{
+    margin: auto;
+    margin-top: 200px;
+    width: 300px;
+    height: 300px;
+    transform-style: preserve-3d;
+    position: relative;
+    animation: rotate 25s infinite;
+}
+.face{
+    width: 300px;
+    height: 300px;
+    text-align: center;
+    border: 1px solid aqua;
+    color: aqua;
+    font-size: 150px;
+    position: absolute;
+    line-height: 300px;
+}
+.face:nth-child(1){
+    transform: translateZ(150px) ;
+}
+.face:nth-child(2){
+    transform: rotateX(90deg) translateZ(150px);
+}
+.face:nth-child(3){
+    transform: rotateY(90deg) translateZ(150px);
+}
+.face:nth-child(4){
+    transform: translateZ(-150px);
+}
+.face:nth-child(5){
+    transform: rotateX(-90deg) translateZ(150px);
+}
+.face:nth-child(6){
+    transform: rotateY(-90deg) translateZ(150px);
+}
+@keyframes rotate {
+    0%{transform: rotateX(0) rotateY(0) rotateZ(0)}
+    20%{transform: rotateX(72deg) rotateY(72deg) rotateZ(72deg)}
+    40%{transform: rotateX(144deg) rotateY(144deg) rotateZ(144deg)}
+    60%{transform: rotateX(216deg) rotateY(216deg) rotateZ(216deg)}
+    80%{transform: rotateX(288deg) rotateY(288deg) rotateZ(288deg)}
+    100%{transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg)}
+    /*from{transform: rotateX(0) rotateY(0) rotateZ(0)}*/
+    /*to{transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg)}*/
+}
