@@ -1,0 +1,48 @@
+body{
+    position: relative;
+    margin: 0;
+    background-image: url(img/1.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
+    transition: 0.5s;
+}
+#stage{
+    position: absolute;
+    top:600px;
+    left:0;
+    width:100%;
+    display: flex;
+    opacity: 0;
+    transition: 0.5s;
+}
+#stage:hover{
+    opacity: 1;
+}
+.slider{
+    display: inline-block;
+    margin: auto;
+    width:256px;
+    height: 128px;
+    opacity: 0.7;
+    transition: 0.5s;
+    border-radius:5px;
+}
+.slider:nth-child(1){
+    background-image: url(img/1.jpg);
+    background-size: cover;
+}
+.slider:nth-child(2){
+    background-image: url(img/2.jpg);
+    background-size: cover;
+}
+.slider:nth-child(3){
+    background-image: url(img/3.jpg);
+    background-size: cover;
+}
+.slider:nth-child(4){
+    background-image: url(img/4.jpg);
+    background-size: cover;
+}
+.slider:hover{
+    opacity: 1;
+}

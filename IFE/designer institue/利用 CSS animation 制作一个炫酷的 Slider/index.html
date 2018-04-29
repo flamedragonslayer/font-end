@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>利用 CSS animation 制作一个炫酷的 Slider</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage">
+    <div class="slider"></div>
+    <div class="slider"></div>
+    <div class="slider"></div>
+    <div class="slider"></div>
+</div>
+<script>
+    var log=console.log.bind(this)
+    var slider=document.getElementsByClassName("slider")
+//    for(var i=0;i<4;)
+//    {
+//        slider[i].addEventListener('click',function () {
+//            document.body.style.backgroundImage='url(img/'+i+'.jpg)'
+//        })
+//    }
+    slider[0].addEventListener('click',function () {
+                document.body.style.backgroundImage='url(img/1.jpg)'
+    })
+    slider[1].addEventListener('click',function () {
+        document.body.style.backgroundImage='url(img/2.jpg)'
+    })
+    slider[2].addEventListener('click',function () {
+        document.body.style.backgroundImage='url(img/3.jpg)'
+    })
+    slider[3].addEventListener('click',function () {
+        document.body.style.backgroundImage='url(img/4.jpg)'
+    })
+</script>
+</body>
+</html>
