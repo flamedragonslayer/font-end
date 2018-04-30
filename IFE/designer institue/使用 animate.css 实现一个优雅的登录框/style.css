@@ -1,0 +1,42 @@
+body{
+    display: flex;
+    background-color: lightgrey;
+}
+
+#stage{
+    margin:auto;
+    margin-top:100px;
+    width:500px;
+    height: 500px;
+    border:1px solid lightslategray;
+    border-radius: 3px;
+    background-color: white;
+    box-shadow: 0px 0px 30px grey;
+    position: relative;
+}
+#log{
+     font-size: 30px;
+     font-weight: bold;
+     margin-top:50px;
+     margin-left: 20px;
+ }
+#f-line{
+    position: absolute;
+}
+#s-line{
+    position: absolute;
+
+}
+#submit{
+    position: absolute;
+    top:430px;
+    left:50px;
+    background-color: dodgerblue;
+    width: 400px;
+    height: 35px;
+    color:white;
+    text-align: center;
+    line-height: 35px;
+    border-radius: 50px;
+    outline:none;
+}
