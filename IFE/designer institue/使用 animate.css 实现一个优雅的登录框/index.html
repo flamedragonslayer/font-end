@@ -6,11 +6,45 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="stage">
-    <p id="log">Login</p>
-    <div id="f-line"></div>
-    <div id="s-line"></div>
-    <div id="submit">submit</div>
-</div>
+<form  id="stage"><p id="log">Login</p>
+    <div id="hide">
+        <div id="f-line">
+        First name:<br>
+        <input type="text" class="txt"></div>
+        <div id="s-line">
+        Last name:<br>
+        <input type="text" class="txt"></div>
+        <!--<input type="submit" value="submit" id="submit">-->
+        <div id="submit">submit</div>
+    </div>
+</form>
+<script>
+    log.addEventListener('click',function () {
+        log.style.visibility='hidden'
+        hide.style.visibility='visible'
+    })
+    var txt=document.getElementsByClassName("txt")
+    var t0=false
+    var t1=false
+
+    txt[0].addEventListener('change',function () {
+        console.log(txt[0].value)
+        t0=true
+    })
+    txt[1].addEventListener('change',function () {
+        console.log(txt[1].value)
+        t1=true
+    })
+    setInterval(function () {
+        if((t0==true)&&(t1==true)) {
+            submit.style.animation="vibration 1s infinite"
+        }
+    },100)
+    submit.addEventListener('click',function () {
+        t0=false
+        t1=false
+        submit.style.animation=""
+    })
+</script>
 </body>
 </html>

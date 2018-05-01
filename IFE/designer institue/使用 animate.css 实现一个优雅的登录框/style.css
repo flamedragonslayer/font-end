@@ -2,41 +2,73 @@ body{
     display: flex;
     background-color: lightgrey;
 }
-
 #stage{
     margin:auto;
     margin-top:100px;
     width:500px;
     height: 500px;
     border:1px solid lightslategray;
-    border-radius: 3px;
+    border-radius:50%;
     background-color: white;
     box-shadow: 0px 0px 30px grey;
     position: relative;
+    display: flex;
 }
 #log{
-     font-size: 30px;
-     font-weight: bold;
-     margin-top:50px;
-     margin-left: 20px;
- }
+    font-size: 30px;
+    font-weight: bold;
+    margin: auto;
+    visibility: visible;
+}
+
+#hide{
+    visibility: hidden;
+}
 #f-line{
     position: absolute;
+    top: 150px;
+    left: 170px;
 }
 #s-line{
     position: absolute;
-
+    top: 200px;
+    left: 170px;
+}
+.txt{
+    outline: none;
+    border: none;
+    border-bottom:1px solid lightslategray;
+}
+.txt:focus{
+    animation: showBlue 1s ;
+    border-bottom: 1px solid dodgerblue;
 }
 #submit{
     position: absolute;
-    top:430px;
-    left:50px;
+    top:300px;
+    left:200px;
     background-color: dodgerblue;
-    width: 400px;
-    height: 35px;
+    width: 100px;
+    height: 100px;
     color:white;
+    font-size: 20px;
     text-align: center;
-    line-height: 35px;
-    border-radius: 50px;
+    border-radius:100px;
+    line-height: 100px;
+    border:none;
     outline:none;
+}
+
+@keyframes hide {
+    from{visibility:visible}
+    to{visibility: hidden}
+}
+@keyframes showBlue {
+    from{border-bottom:1px solid lightslategray;width: 0%}
+    to{border-bottom:1px solid dodgerblue;width: 100%}
+}
+@keyframes vibration{
+    0%{width: 100px;height: 100px;}
+    50%{width: 150px;height: 150px;line-height: 150px}
+    100%{width: 100px;  height: 100px;}
 }
