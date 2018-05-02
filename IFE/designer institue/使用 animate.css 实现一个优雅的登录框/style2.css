@@ -9,9 +9,8 @@ body{
     height: 500px;
     border:1px solid lightslategray;
     border-radius:50%;
-    background-color:white;
-    opacity: 0.9;
-    box-shadow: 0px 0px 30px black;
+    background-color:black;
+    box-shadow: 0px 0px 30px white;
     position: relative;
     display: flex;
 }
@@ -21,6 +20,7 @@ body{
     margin: auto;
     visibility: visible;
     transition: 0.5s;
+    color: white;
 }
 #log:hover{
     cursor: pointer;
@@ -41,24 +41,30 @@ body{
     top: 200px;
     left: 170px;
 }
+.l{
+    color: white;
+}
 .txt{
     outline: none;
     border: none;
-    border-bottom:1px solid lightslategray;
+    color: white;
+    background-color: black;
+    border-bottom:1px solid white;
 }
 .txt:focus{
     animation: showBlue 1s ;
-    border-bottom: 1px solid dodgerblue;
+    border-bottom: 1px solid red;
 }
 #submit{
     position: absolute;
     top:300px;
     left:200px;
-    background-color: dodgerblue;
+    background-color: red;
     width: 100px;
     height: 100px;
-    color:white;
+    color:black;
     font-size: 20px;
+    font-weight: bold;
     text-align: center;
     border-radius:100px;
     line-height: 100px;
@@ -69,8 +75,8 @@ body{
     cursor: pointer;
 }
 @keyframes showBlue {
-    from{border-bottom:1px solid lightslategray;width: 0%}
-    to{border-bottom:1px solid dodgerblue;width: 100%}
+    from{border-bottom:1px solid white;width: 0%}
+    to{border-bottom:1px solid red;width: 100%}
 }
 @keyframes vibration{
     0%{transform: scale(1)}
