@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>把 AE 动画转换成 Web 原生动画</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/4.13.0/bodymovin.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="demo"></div>
+<script>
+    var animation = bodymovin.loadAnimation({
+        container:demo, // Required
+        path: 'data.json', // Required
+        renderer: 'svg' , // Required
+        loop: true, // Optional
+        autoplay: true, // Optional
+        name: "Hello World", // Name for future reference. Optional.
+    })
+</script>
+</body>
+</html>
