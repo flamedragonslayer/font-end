@@ -1,7 +1,9 @@
-��һ��bug�����˫����index.html���ᱨ����ʲô������ʾ��������IDE�򿪾�û�����⡣ԭ����:�ȸ�������ں�Ϊ�˰�ȫ���ƣ�������������ʽ��������ҳ�棬�������������ȴ�������������
+有一个bug，如果双击打开index.html，会报错且什么都不显示，但是用IDE打开就没有问题。原因是:谷歌浏览器内核为了安全机制，不允许这样方式访问其他页面，但是其他浏览器却允许这种情况。
 
-�ٷ��̳����������js��ʵ�ֶ���Ч����һ����bodymovin.js,һ����lottie.js��Դ�벻֪���ǲ���һ���ģ�����ʵ�ֶ���Ч�����ֵĺ�����һ���ġ���� http://airbnb.io/lottie/web/web.html
+官方教程里给了两种js来实现动画效果，一个是bodymovin.js,一个是lottie.js，源码不知道是不是一样的，但是实现动画效果部分的函数是一样的。详见 http://airbnb.io/lottie/web/web.html
 
-�и�bug�����renderer����Ϊsvg,��������Ļ���ͼ����ɫ���Ϊ�ڰף��������Ϊcanvas��ͼ��ߴ����С����Ļ��ͼ����ʧ��
+有个bug，如果renderer设置为svg,则两个屏幕里的图像颜色会变为黑白，如果设置为canvas则图像尺寸会缩小且屏幕里图像消失。
 
-�������ԣ�����jsonû�мӱ�������ԭ��Ҳ����js���ô����ԭ����������lottie-light.jsҲ���У�����ô�п�������ΪAdobe 2018�汾��ԭ���Ʋ����£��ƽ�ʱ��û��2018���ƽ⹤�ߣ���ʹ�õ�2017�Ĺ��ߣ�����������AEԴ�ļ�ʱ��renderʱ���ֱ��б�����������������������ط���
+经过测试，不是json没有加变量名的原因，也不是js引用错误的原因（试着用了lottie-light.js也不行），那么有可能是因为Adobe 2018版本的原因，推测如下：破解时并没有2018的破解工具，是使用的2017的工具，另外在载入AE源文件时和render时都分别有报错，可能问题出在这两个地方。
+
+看了下别人成功的案列，问题确实出在json本身。
